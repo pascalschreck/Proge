@@ -13,7 +13,7 @@
    et de sa representation.                                        
      En pratique, nous n'utiliserons qu'une structure ayant pour   
    foncteur principal fe :                                         
-   fe(nom, type, dø de lib, definition context., repres., partic.) 
+   fe(nom, type, dÃ¸ de lib, definition context., repres., partic.) 
                                                                    
     definition contextuelle :                                      
 
@@ -85,9 +85,9 @@ efface_syn(A/T, [AT | S], [AT|S2]) :- efface_syn(A/T, S, S2).
 /*------------------------------------------*
 *        ajoute_rep/3                       *
 *   ajoute_rep(Terme, Fe1, Fe2) :           *
-* Ajoute le terme Terme … la representation *
+* Ajoute le terme Terme Â… la representation *
 * de Fe1 pour donner Fe2, ceci dans la      *
-* figure courante (mise … jour de la def.)  *
+* figure courante (mise Â… jour de la def.)  *
 *                                           *
 * pre : Terme est clos de prof. 1           *
 *================================           *
@@ -103,7 +103,7 @@ ajoute_rep(Terme, FeE, FeS) :-
 /*---------------------------------*
 *        ajoute_repl/3             *
 *  Comme ajoute_rep, mais pour     *
-* une liste de termes … ajouter    *
+* une liste de termes Â… ajouter    *
 *----------------------------------*/
 ajoute_repl([PT|TS], FeE, FeS) :-
     ajoute_rep(PT,FeE, Fe1), !,
@@ -152,7 +152,7 @@ ajoute_partl0(Nom, [Part1|SP], Parts, NParts) :-
     app_titre_syn(Part1, Parts),!,
     ajoute_partl0(Nom, SP, Parts, NParts)
     ;
-    maj_recip(Part1, Nom), !,               /* mise … jour reciproque de Part1 */
+    maj_recip(Part1, Nom), !,               /* mise Â… jour reciproque de Part1 */
     ajoute_partl0(Nom, SP, [Part1|Parts], NParts).
     
 ajoute_partl0(_, [], LP, LP).
@@ -167,7 +167,7 @@ app_titre_syn(P/T/Ti, [_ | S]) :- app_titre_syn(P/T/Ti, S).
 /*---------------------------------*
 *        maj_recip/2               *
 *----------------------------------*/
-/* corrigé avec util de nom_fe et remplacement de Nompart par Nompartb --PS2012 */
+/* corrigÃ© avec util de nom_fe et remplacement de Nompart par Nompartb --PS2012 */
 maj_recip(NomPart/_/Titre, Nom) :-
     nom_fe(NomPart, fe(NomPartb, T, Deg, Def, Lrep, Lpart)),
     xtype(Nom, Type),
@@ -191,7 +191,7 @@ maj_recip(NomPart/_/Titre, Nom) :-
     ;
       recip(Titre, Fonct, representant),                             
       Nrep =.. [Fonct, Nom],
-      retract(fe(NomPartb, T, Deg, Def, Lrep, Lpart)),           /* tres mauvais, à revoir */
+      retract(fe(NomPartb, T, Deg, Def, Lrep, Lpart)),           /* tres mauvais, Ã  revoir */
       ajoute_repr(Nrep,fe(NomPartb, T, Deg, Def, Lrep, Lpart), Fel),
       assert_fig(Fel), !
     ).
@@ -227,7 +227,7 @@ ajoute_partl1([], Fe, Fe).
 
 /*----------------------------------------------*
 *          majdef/6                             *
-* mise … jour d'une definition                  *
+* mise Â… jour d'une definition                  *
 * incomplete (precondition) par ajout           *
 * d'un participant.                             *
 * profil :                                      *
@@ -299,7 +299,7 @@ fusion_fe(Fe1, Fe2) :-
     ((Deg1==0, Deg2 \== 0; Deg1 \== 0, Deg2 ==0), !, propage0(Nom2); true),
     revise_fig(Nom2,Nom1).
 
-choisi_nom(Nom1, _, 0, Nom1):- !.      /* on peut, peut-ˆtre, faire plus fin ! */
+choisi_nom(Nom1, _, 0, Nom1):- !.      /* on peut, peut-Âˆtre, faire plus fin ! */
 choisi_nom(_,Nom2,_,Nom2).
 
 def_fin(_, _, 0, Def, 0, Def) :- !.
@@ -307,7 +307,7 @@ def_fin(0, Def, _, _, 0, Def) :- !.
 def_fin(_, _, Deg, Def, Deg, Def).
 
 
-traite_alias(Nom1, Nom2) :- Nom1 alias Nom2, !. /* Nom2 est bien le représentant des egaux */
+traite_alias(Nom1, Nom2) :- Nom1 alias Nom2, !. /* Nom2 est bien le reprÃ©sentant des egaux */
 traite_alias(Nom1, Nom2) :- Nom1 alias Rep, !, traite_aliases(Rep, Nom2). /* en principe Rep = Nom1 */
 
 traite_aliases(Rep, Nom2) :- retract(X alias Rep), assert(X alias Nom2), fail.
@@ -318,8 +318,8 @@ traite_aliases(_,_).
 		revise_fig/1
 	revise(Nom)
 	le premier arg est le nom figurant effectivement dans la fe
-        calculée par fusion
-	on suppose que la table des syn. a d‚j… ‚t‚ mise … jour !
+        calculÃ©e par fusion
+	on suppose que la table des syn. a dÂ‚jÂ… Â‚tÂ‚ mise Â… jour !
 *-------------------------------------------------------------------*/
 revise_fig(Nom1, Nom2) :-
 	cherche_fe(Fe),
@@ -327,7 +327,7 @@ revise_fig(Nom1, Nom2) :-
         traite_rel_part(Nom1, Nom2),
 	fail.
 
-revise_fig(_, _).      /* revise_fig réussit toujours */
+revise_fig(_, _).      /* revise_fig rÃ©ussit toujours */
 
 traite_fus(Nom, Fe) :-
 	fe_def(Fe, Def),
@@ -343,7 +343,7 @@ traite_fus(Nom, Fe) :-
 	fe_def(Fe, Def),
 	Def =.. [_|Largs],
 	appartient_syn(Nom, Largs),!,
-        def_fe(Def, Feb),		/* def_fe est … REVOIR */
+        def_fe(Def, Feb),		/* def_fe est Â… REVOIR */
         Fe \== Feb,
 	fe_nom(Fe, Nom3),
 	fe_nom(Feb, Nom4),
@@ -387,4 +387,4 @@ traite_rel_part(Nom1, Nom2):- (rel_part(Nom1 diff Nom2) ; rel_part(Nom2 diff Nom
         write(' contradiction **** au moment de la fusion de '),
         write(Nom1), write(' et '), write(Nom2), point_arret.
 
-/* TODO : mettre à jour les relations particulières */
+/* TODO : mettre Ã  jour les relations particuliÃ¨res */
