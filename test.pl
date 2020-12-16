@@ -66,7 +66,7 @@ roule :- lis_decl, lis_cont, !, moteur(_), !,
 	pcg_bdf_l(_,Pgm),
 	gname(pgm_int, P),
 	asserta(sauve(P, Pgm)), !,
-	nl, write(' r: '), get1(C),list([C], S),
+	nl, write(' r: '), get1(C), string_to_list(S,[C]),            /* list([C], S),*/
 	traite_req(S, Pgm, _), !.
 
 /*--------------------------------------*
@@ -123,9 +123,12 @@ traite_rep("r",Pgm,L) :-
 traite_req("k", Pgm, L) :-
 	abolishe sauve,
 	nl, write(' r: '), 
-	get1(C), !, list([C], S),traite_req(S, Pgm, L).
+	get1(C), !, /* list([C], S),*/ /* ancienne version incompatible avec swipl */
+	string_to_list(S,[C]),
+	traite_req(S, Pgm, L).
 
 traite_req("a", Pgm, L) :-
+	write("vous avez bien tapé a"),
 	aff_prog(Pgm, 0),
 	nl, write(' r: '),
 	get1(C), !, list([C], S),traite_req(S, Pgm, L).
