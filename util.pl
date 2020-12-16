@@ -352,13 +352,19 @@ aff_liste_bis(L , N,N) :-
 
 aff_liste_bis([],_,_) :- nl, !.
 
-/*------------------------*
-*    get1/1               *
-* prend le premier car.   *
-* ------------------------*/
+/*--------------------------------------*
+*    get1/1                             *
+* prend le premier car.                 *
+*   get_str1/1                          *
+* lit le premier caractère              *
+entré au clavier et retourne            *
+* la chaîne (swipl) correspondante      *
+* --------------------------------------*/
 get1(C) :- get1b(C), !.
 get1b(C) :- repeat,
 	  get0(C), C \== 10, C \== 13, !, videbuff.
+
+get_str1(S) :- get1(C), string_to_list(S, [C]),!.
 
 /*---------------------------------*
 *        getrc/0                   *
@@ -367,6 +373,9 @@ get1b(C) :- repeat,
 getrc :- get0(C), ( C == 10, ! ;C == 13, ! ; videbuff, !).
 
 get1rc(C) :- get0(C), (C == 10, !; C == 13, ! ;videbuff, !).
+
+
+
 
 /*------------------------*
 *   videbuff/0            *

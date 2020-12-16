@@ -55,6 +55,9 @@ dessinel(N,[P|S]) :- dessine(N,P), !, dessinel(N,S).
 dessinel(_,[]) :- !.
 dessinel(N,T) :- dessine(N,T).
 
+
+
+
 /*--------------------------------------*
 *	roule/0				*
 * Enchainement des predicats de lecture	*
@@ -66,7 +69,7 @@ roule :- lis_decl, lis_cont, !, moteur(_), !,
 	pcg_bdf_l(_,Pgm),
 	gname(pgm_int, P),
 	asserta(sauve(P, Pgm)), !,
-	nl, write(' r: '), get1(C), string_to_list(S,[C]),            /* list([C], S),*/
+	nl, write(' r: '), get_str1(S),!,
 	traite_req(S, Pgm, _), !.
 
 /*--------------------------------------*
@@ -77,7 +80,7 @@ roule :- lis_decl, lis_cont, !, moteur(_), !,
 continue :- 
 	sauve(_, Pgm),
 	!,
-	nl, write(' r: '), get1(C), list([C], S),
+	nl, write(' r: '), get_str1(S),
 	traite_req(S, Pgm, _), !.
 
 /*--------------------------------------*
@@ -94,44 +97,43 @@ traite_req("F",_,_) :- !.
 traite_req("x",Pgm,L) :-
 	nl, write(' nom : '), read(Nom),
 	evall(Nom, L, V), write('---> '), write(V),
-	nl, write(' r: '), get1(C), !,list([C], S),
+	nl, write(' r: '), get_stri1(S), !,
 	traite_req(S, Pgm, L).
 traite_req("X", Pgm, L) :- !, traite_req("x", Pgm, L).
 
 traite_req("E", Pgm, L) :- shell,
-	nl, write(' r: '),get1(C), !, list([C], S),traite_req(S, Pgm, L).
+	nl, write(' r: '),get_str1(S), !,traite_req(S, Pgm, L).
 traite_req("e", Pgm, L) :- shell, 
-	nl, write(' r: '),get1(C), !, list([C], S),traite_req(S, Pgm, L).
+	nl, write(' r: '),get_str1(S), !,traite_req(S, Pgm, L).
 
 traite_req("p", Pgm, L) :- gname(pgm_int, P),
 	asserta(sauve(P, Pgm)),
 	nl, write(' r: '),
-	get1(C), !,list([C], S),traite_req(S, Pgm, L).
+	get_str1(S), !,traite_req(S, Pgm, L).
 
 /* TODO check if typo
 traite_rep("r", _, L) :-
 	sauve(P, Pgm), !,
 	nl, write(P), nl,
 	nl, write(' r: '),
-	get1(C), !,traite_req([C], Pgm, L).
+	get_str1(S), !,traite_req(S, Pgm, L).
 
 traite_rep("r",Pgm,L) :-
 	nl, write(' r: '),
-	get1(C), !,list([C], S),traite_req(S, Pgm, L).
+	get_str1(S), !,traite_req(S, Pgm, L).
 */
 
 traite_req("k", Pgm, L) :-
 	abolishe sauve,
 	nl, write(' r: '), 
-	get1(C), !, /* list([C], S),*/ /* ancienne version incompatible avec swipl */
-	string_to_list(S,[C]),
+	/* get1(C), !, list([C], S),*/ /* ancienne version incompatible avec swipl */
+	get_str1(S), !,
 	traite_req(S, Pgm, L).
 
 traite_req("a", Pgm, L) :-
-	write("vous avez bien tapé a"),
 	aff_prog(Pgm, 0),
 	nl, write(' r: '),
-	get1(C), !, list([C], S),traite_req(S, Pgm, L).
+	get_str1(S), !,traite_req(S, Pgm, L).
 
 traite_req(_, Pgm, L) :-
 	nl, write(' Aide : '),
@@ -149,7 +151,7 @@ traite_req(_, Pgm, L) :-
 	nl, write('w	 : modifier la fenetre'),
 	nl, write('f,q	 : quitter'),
 	nl, write(' r: '),
-	get1(C), list([C], S),traite_req(S, Pgm, L), !.
+	get_str1(S), !,traite_req(S, Pgm, L), !.
 	
 /*--------------------------------------*
 *	Utilitaires :			*

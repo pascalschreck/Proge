@@ -278,7 +278,7 @@ traite_roule(_).
 monhalt :- not(batchmode), !.
 monhalt :- halt.
   
-/*
+
 :- run, write(' nom de l''exercice : '), read(Nom),  traite_roule(Nom), monhalt.
-*/
+
 
