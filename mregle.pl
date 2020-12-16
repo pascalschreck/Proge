@@ -18,7 +18,7 @@ Selon chaque CRG, on distinguera une action sur la figure
 et une action sur le raisonnement.
 Pour chaque propriete geometrique en premisse, on indiquera 
 le nombre de degre de libertes qu'on espere restreindre par
-la regle ( ou peut ˆtre que ceci est calculable ...)
+la regle ( ou peut Âˆtre que ceci est calculable ...)
 
 Une regle disjonctive est de la forme :
   Num  # si  
@@ -120,6 +120,6 @@ concl([],[]) :- !.
 concl([_ >> Conc | Suite], [Conc | Suitec]) :-
 	concl(Suite, Suitec).
 
-/* ajout PS2012 .... perte due à je ne sais pas quoi ! */
+/* ajout PS2012 .... perte due Ã  je ne sais pas quoi ! */
 concl2hyp([],[]) :- !.
 concl2hyp([C|S],[C>>[]|Sp]) :- concl2hyp(S, Sp).

@@ -57,7 +57,7 @@ ddecl(Decl,Nom,Type,Motif) :-
 *----------------------------------*/
 /* directives de creations provenant en principe exclusivement de l'enonce */
 creer(Nom,Type,donne) :-
-     atom(Nom),               /* verification peut ˆtre inutile */
+     atom(Nom),               /* verification peut Âˆtre inutile */
      assert_fig(fe(Nom,Type,0,donne,[],[])),
      assert(Nom alias Nom),
      autom(Type,Nom,Acreer,Reps),
@@ -68,7 +68,7 @@ creer(Nom,Type,donne) :-
      
 
 creer(Nom,Type,cherche) :-
-     atom(Nom),               /* verification peut ˆtre inutile */
+     atom(Nom),               /* verification peut Âˆtre inutile */
      dmax(Type,N),
      inserb_fe(fe(Nom,Type,N,[],[],[])),
      assert(Nom alias Nom), 
@@ -82,7 +82,7 @@ creer(Nom,Type,cherche) :-
      
 
 creer(Nom,Type,mentionne) :-
-     atom(Nom),               /* verification peut ˆtre inutile */
+     atom(Nom),               /* verification peut Âˆtre inutile */
      dmax(Type,N),
      inserb_fe(fe(Nom,Type,N,[],[],[])),
      assert(Nom alias Nom),

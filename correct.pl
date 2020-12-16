@@ -2,62 +2,62 @@
 
  Objet de la correction :
  ========================
- Trait‚e comme elle l'est actuellement, la fusion de deux objets n'est pas
- tr‚s satisfaisante, plusieurs problŠmes se posent qui d‚coulent du mˆme
- problŠme fondamental : traduire l'identit‚ entre deux objets.
+ TraitÂ‚e comme elle l'est actuellement, la fusion de deux objets n'est pas
+ trÂ‚s satisfaisante, plusieurs problÂŠmes se posent qui dÂ‚coulent du mÂˆme
+ problÂŠme fondamental : traduire l'identitÂ‚ entre deux objets.
 
- Ces problŠmes ont ‚t‚ mis en ‚vidence notamment … la r‚solution de l'
+ Ces problÂŠmes ont Â‚tÂ‚ mis en Â‚vidence notamment Â… la rÂ‚solution de l'
  exo8b :
 
- 1- On pose, … un moment, l'‚galit‚ o1 = o3, or cette ‚galit‚ impose
- que c1 = c3 puisque le cercles c1 et c3 ont mˆme rayon ... Prog‚ ne trouve
- pas cette ‚galit‚.
+ 1- On pose, Â… un moment, l'Â‚galitÂ‚ o1 = o3, or cette Â‚galitÂ‚ impose
+ que c1 = c3 puisque le cercles c1 et c3 ont mÂˆme rayon ... ProgÂ‚ ne trouve
+ pas cette Â‚galitÂ‚.
 
- 2- Un peu plus loin, on trouve ces d‚finitions de a1 et a3 (via deux listes) :
+ 2- Un peu plus loin, on trouve ces dÂ‚finitions de a1 et a3 (via deux listes) :
 	a3 := intercc(c1, c3) 	et 	a1 := intercc(c3, c1),
  en dehors de l'inconsistance de l'intersection (c1 = c3 !), on devrait
- avoir, au moins formellement que a1 = a3, or Prog‚ ne d‚couvre pas cette
- ‚galit‚.
- 3- Plus loin encore, alors que l'‚galit‚ a1 = a3 a ‚t‚ suppos‚e, on trouve
- cette d‚finition de s :
+ avoir, au moins formellement que a1 = a3, or ProgÂ‚ ne dÂ‚couvre pas cette
+ Â‚galitÂ‚.
+ 3- Plus loin encore, alors que l'Â‚galitÂ‚ a1 = a3 a Â‚tÂ‚ supposÂ‚e, on trouve
+ cette dÂ‚finition de s :
 		s := cr2p(long00, a1, a1)
- a priori surprenante, y aurait-il un bug dans les op‚rations faisant
- ‚voluer une d‚finition ? En fait, avant de d‚clarer que a1 = a3, on
- avait d‚j… la d‚finition partielle de s : [a1/point/incid, a3/point/incid]
- cette d‚fintion partielle n'a pas ‚t‚ remise en cause par la supposition
- a1 = a3 et la promotion d'une d‚f. ne contr“le plus les synonymies sauf
+ a priori surprenante, y aurait-il un bug dans les opÂ‚rations faisant
+ Â‚voluer une dÂ‚finition ? En fait, avant de dÂ‚clarer que a1 = a3, on
+ avait dÂ‚jÂ… la dÂ‚finition partielle de s : [a1/point/incid, a3/point/incid]
+ cette dÂ‚fintion partielle n'a pas Â‚tÂ‚ remise en cause par la supposition
+ a1 = a3 et la promotion d'une dÂ‚f. ne contrÂ“le plus les synonymies sauf
  au placement dans le programme (sinon on aurait eu s := cr2p(long00,a1,a3)).
 
- Pourquoi ces problŠmes ?
+ Pourquoi ces problÂŠmes ?
  ========================
- La fusion de deux fe est pour le moment limit‚e … ces deux figures et n'a
- pas d'influence sur les autres objets d‚pendants de ces deux fe. Il
- faudrait donc r‚viser toute la figure apr‚s une fusion ... ce que nous
- avions pens‚ ‚viter par l'utilisation d'une table de synonymes !
+ La fusion de deux fe est pour le moment limitÂ‚e Â… ces deux figures et n'a
+ pas d'influence sur les autres objets dÂ‚pendants de ces deux fe. Il
+ faudrait donc rÂ‚viser toute la figure aprÂ‚s une fusion ... ce que nous
+ avions pensÂ‚ Â‚viter par l'utilisation d'une table de synonymes !
 
- Un algo de r‚vision
+ Un algo de rÂ‚vision
  ===================
- Apr‚s fusion de O1 et O2
-	Pour toutes les figures ‚l‚mentaires Fe de la figure
+ AprÂ‚s fusion de O1 et O2
+	Pour toutes les figures Â‚lÂ‚mentaires Fe de la figure
 		si Fe a une def partielle
 		  alors si O1 et O2 apparaissent en 2 occurences
-			   distinctes de cette d‚f.
-			alors en ‚liminer une
+			   distinctes de cette dÂ‚f.
+			alors en Â‚liminer une
 			sinon pas de changement
-		sinon Fe a une d‚f compl‚te (Deg = 0)
-			si O1 ou O2 intervient dans cette d‚f.
-			alors chercher une autre figure Feb r‚pondant
-				… cette d‚f. (Feb \= Fe)
+		sinon Fe a une dÂ‚f complÂ‚te (Deg = 0)
+			si O1 ou O2 intervient dans cette dÂ‚f.
+			alors chercher une autre figure Feb rÂ‚pondant
+				Â… cette dÂ‚f. (Feb \= Fe)
 			      si il existe une telle figure
 			       alors fusion de Fe et Feb
 			       sinon rien
 			sinon rien
 
- Un algo de contr“le
+ Un algo de contrÂ“le
  ===================
- Au moment de donner une d‚f. compl‚te … une figure ‚l‚mentaire,
- chrecher s'il n'existe pas dans la figure une autre fe r‚pondant
- … cette d‚f. si oui alors fusion
+ Au moment de donner une dÂ‚f. complÂ‚te Â… une figure Â‚lÂ‚mentaire,
+ chrecher s'il n'existe pas dans la figure une autre fe rÂ‚pondant
+ Â… cette dÂ‚f. si oui alors fusion
 		sinon traitement et promotion normale.
 
 */
@@ -79,14 +79,14 @@ def_fin(_, _, 0, Def, 0, Def) :- !.
 def_fin(0, Def, _, _, 0, Def) :- !.
 def_fin(_, _, Deg, Def, Deg, Def).
 
-apr‚s le dernier assert_fig(Fef) on peut ajouter revise_fig(Nom2, Nom1)
-dont la d‚finition est la suivante
+aprÂ‚s le dernier assert_fig(Fef) on peut ajouter revise_fig(Nom2, Nom1)
+dont la dÂ‚finition est la suivante
 */
 /*------------------------------------------------------------------*
 		revise_fig/2
 	revise(Nom1, Nom2)
 	le premier arg est le nom figurant effectivement dans la fe
-	on suppose que la table des syn. a d‚j… ‚t‚ mise … jour !
+	on suppose que la table des syn. a dÂ‚jÂ… Â‚tÂ‚ mise Â… jour !
 *-------------------------------------------------------------------*/
 revise_fig(Nom1, Nom2) :-
 	cherche_fe(Fe),
@@ -108,7 +108,7 @@ traite_fus(Nom, Fe) :-
 	fe_def(Fe, Def),
 	Def =.. [_|Largs],
 	appartient_syn(Nom, Largs),!,
-        def_fe(Def, Feb),		/* def_fe est … REVOIR */
+        def_fe(Def, Feb),		/* def_fe est Â… REVOIR */
 	Feb \== Fe,
 	fe_nom(Fe, Nom3),
 	fe_nom(Fe, Nom4),
@@ -156,7 +156,7 @@ def_fe(Def, fe(Nom, Ty, Adef, Parts, Reps)) :-
 
 /* REVISION de equivdef :
 ==========================
-(permutations pour des repr‚sentants d‚composanbles ou non)
+(permutations pour des reprÂ‚sentants dÂ‚composanbles ou non)
      A faire dans COG
 */
 

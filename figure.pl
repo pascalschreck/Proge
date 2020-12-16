@@ -14,7 +14,7 @@
 	  par un representant (propre),                            
 	  par un representant (via les synonymes),                 
      -retirer une figure elementaire,                              
-     -propager les dø 0 dans la figure,                            
+     -propager les dÃ¸ 0 dans la figure,                            
 	et placer les objets connus dans le pcg                    
 	       ....                                                
 								   
@@ -85,7 +85,7 @@ exist_fe :- fe(_,_,_,_,_,_).       /*   existence d'une fe dans la figure  */
 cherche_fe(fe(N,T,D,Def,Lr,Lp)) :- fe(N,T,D,Def,Lr,Lp). /* recherche brute */
 
 nom_fe(Nom, fe(Rep, T, D, Def, Lr, Lp)) :-   /* recherche d'une fe par le nom */
-/* ancienne tête : nom_fe(Nom, fe(Nom, T, D, Def, Lr, Lp)) :-                */
+/* ancienne tÃªte : nom_fe(Nom, fe(Nom, T, D, Def, Lr, Lp)) :-                */
      synonyme(Nom,Rep),                      /* Nom ou Rep rendu : Rep en PS2012 */
      fe(Rep, T, D, Def, Lr, Lp), !.           /* coupure : --PS2012 */ 
 
@@ -95,7 +95,7 @@ nom_fe(Nom, fe(Rep, T, D, Def, Lr, Lp)) :-   /* recherche d'une fe par le nom */
 def_fe(Def, fe(Nom, T, D, Def, Lr, Lp)) :-   
      fe(Nom, T, D, Def, Lr, Lp), !.   
 */         
-/* version tirée de correct.pl --PS2012 */
+/* version tirÃ©e de correct.pl --PS2012 */
 def_fe(Def, fe(Nom, Ty, D, Adef, Lr, Lp)) :-
 	fe(Nom, Ty, D, Adef, Lr, Lp),
 	Adef equivdef Adf,
@@ -270,7 +270,7 @@ atomvar(Terme, Nom) :-
 * dont le nom et un representant   *
 * sont donnes ( nomme ).           *
 * Note : Cette figure elementaire  *
-* ÍÍÍÍÍ                            *
+* ÃÃÃÃÃ                            *
 * n'est pas encore presente dans   *
 * la figure.                       *
 *----------------------------------*/
@@ -307,7 +307,7 @@ creeraux(Terme, Nom) :-
 
 /*---------------------------------*
 *        propage0/1                *
-* Propagation des dø de lib. nuls. *
+* Propagation des dÃ¸ de lib. nuls. *
 *----------------------------------*/
 propage0(Nom) :-
 	 fe(N, T, D, Def, Lr, Lp),
@@ -358,7 +358,7 @@ efface_syn_sans(Nom, [NNom|L], [NNom|LL]) :-
  privilegie des synonymes : c'est lui qui figure comme
  nom dans la fe correspondante.
   On s'arrangera pour que les clauses du genre R alias R
- soient les premiŠres a etre essayees de sorte que s'il
+ soient les premiÂŠres a etre essayees de sorte que s'il
  s'agit d'une instanciation, le premier essai se fait
  avec le representant privilegie.
 *------------------------------------------------------*/
@@ -431,7 +431,7 @@ assert_const(fe(Nom, Type, Deg, Def, Lr, Lp)) :-
 	).
 
 /*
-veille version à la suite
+veille version Ã  la suite
 *//*
 
 assert_const(fe(Nom, Type, Deg, Def, Lr, Lp)) :-

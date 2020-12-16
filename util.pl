@@ -84,7 +84,7 @@ unif_synl([P1| S1],[P2|S2]) :-
 /*---------------------------------------------------------------*
 *         unif_rep/2                                             *
 *    Unification modulo la repr. d'un objet geometrique.         *
-*  unif_rep(Terme, TC) TC doit õ€•˜re un terme clos. Si l'         *
+*  unif_rep(Terme, TC) TC doit ÃµÂ€Â•Â˜re un terme clos. Si l'         *
 *  unification standart echoue parce que TC est un nom de        *
 *  fe alors on cherche dans la representation de TC les          *
 *  termes qui feraient reussir l'unification.                    *
@@ -332,7 +332,7 @@ writelnn(L,N) :- affiche_liste(L,N).
 *   affiche_liste(L,N)             *
 *   Affiche la liste L en passant  *
 * a la ligne a chaque membre et    *
-* en s'arrõ€•˜ant toutes les N lignes*
+* en s'arrÃµÂ€Â•Â˜ant toutes les N lignes*
 * (utilise aff_liste_bis)          *
 *----------------------------------*/
 
@@ -392,7 +392,7 @@ for(I, A, B) :- A < B, AA is A + 1, for(I, AA, B).
 /*---------------------------------*
 *        for/4                     *
 *  classique ...                   *
-*  ( le pas doit õ€•˜re >0 ...)      *
+*  ( le pas doit ÃµÂ€Â•Â˜re >0 ...)      *
 *----------------------------------*/
 
 for(A,A,B, _) :- A =< B, !.
@@ -404,7 +404,7 @@ for(I, A, B, P) :- A < B, AA is A + P, for(I, AA, B).
 *  pas dans la version de prolog   *
 *  en ma possession.               *
 *----------------------------------*/
-/* commenté pour swi-prolog
+/* commentÃ© pour swi-prolog
 findall(X, But, _) :-
     call(But),
     assertz('$$pile$$'(X)),

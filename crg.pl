@@ -24,9 +24,9 @@ pprofil(est_sur, point x lieu).        /* affirmation constructive d'une inciden
                                          En outre, il n'y aura pas d'introduction
                                         d'une nouvelle propriete dans le raisonnement.
                                       */
-pprofil(appartient_a, point x lieu).   /* pourrait ˆetre plus general :
-                                         une droite appartient … une direction
-                                         un bipoint appartient … un vecteur ...
+pprofil(appartient_a, point x lieu).   /* pourrait Âˆetre plus general :
+                                         une droite appartient Â… une direction
+                                         un bipoint appartient Â… un vecteur ...
                                        */
 pprofil(iso, point x point x point).
 pprofil(ortho, droite x droite).
@@ -90,6 +90,6 @@ O diff Op pequiv Op diff O.
 
 
 /*------------
-	    à ajouter : calcul numérique associé
+	    Ã  ajouter : calcul numÃ©rique associÃ©
 ------------*/
 

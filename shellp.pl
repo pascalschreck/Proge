@@ -1,16 +1,16 @@
 /*---------------------------------*
 *         SHELLP.PRO               *
-*    Interpr‚teur de commandes     *
+*    InterprÂ‚teur de commandes     *
 *  pour PROGE.                     *
 *                                  *
 *----------------------------------*
 
-Les principales fonctions autoris‚es par l'interpr‚teur
+Les principales fonctions autorisÂ‚es par l'interprÂ‚teur
 sont :
-     l'‚dition d'‚nonc‚s (contraintes et d‚clarations),
+     l'Â‚dition d'Â‚noncÂ‚s (contraintes et dÂ‚clarations),
      l'exploration d'une figure,
      l'exploration d'un raisonnement,
-     le lancement de requˆtes Prolog.
+     le lancement de requÂˆtes Prolog.
      
 */   
 
@@ -26,7 +26,7 @@ shell.
 
 /*--------------------------*
 *     traitecom/1              *
-* interpr‚teur de commandes *
+* interprÂ‚teur de commandes *
 *---------------------------*/
 traitecom("H") :- traitecom("h"), !.
 traitecom("h") :- 
@@ -480,7 +480,7 @@ traite_raisi("h") :-
           nl, write(' L : lister toutes les proprietes '),
           nl, write(' C : lister les composantes connexes'),
           nl, write(' U : lister les proprietes non utilisees activement'),
-          nl, write(' D : lister les d‚rivations'),
+          nl, write(' D : lister les dÂ‚rivations'),
           nl, write(' P : lister le PCG'),
           nl, write(' H : aide'),
           nl, write(' Q : quitter raison info'), !.

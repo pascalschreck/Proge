@@ -98,7 +98,7 @@ traite_complete1([O nomme T | Suite]) :-
         construit(O), !
        ;
         num_prog_cur(Num), 
-	assert(pcg(Num,O:= T)), 	/* il faudrait bien sur v‚rifier */
+	assert(pcg(Num,O:= T)), 	/* il faudrait bien sur vÂ‚rifier */
         assert(deja_construit(O))        /* que T est construit et que 	 */
        ),                              /* ses arg. figurent dans le prog*/
 	traite_complete1(Suite).	
@@ -208,7 +208,7 @@ applique(Regle, Sommet) :-
     applique_concl(Lconcl, Ns, Nregle)
     ;
     Sconds \== [],
-    prouve_l(Sconds, Clause_p),     /* Clause_p : conjonction de nø de sommets du raisonnement */
+    prouve_l(Sconds, Clause_p),     /* Clause_p : conjonction de nÃ¸ de sommets du raisonnement */
     verifie_l(Lav),             /* si echec de la concl, echec de la regle */
     applique_concl(Lconcl, Ns & Clause_p, Nregle)
     ),!,
@@ -343,7 +343,7 @@ verifie_l([]).
 * Applique la liste conclusion (arg1) en faisant les actions explicites     *
 * sur la figure ( operateur ':'), les actions implicites (par atomisation   *
 * et mise a jour) et en completant le graphe de raisonnement. A cet effet,  *
-* on conserve les nø de sommets correspondant aux premisses (arg2)    	    *
+* on conserve les nÃ¸ de sommets correspondant aux premisses (arg2)    	    *
 * et le numero de la regle appliquee (arg3).                                *
 * TOUS les arguments doivent etre instancies au moment de l'appel.	    *
 *---------------------------------------------------------------------------*/
