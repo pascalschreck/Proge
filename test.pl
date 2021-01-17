@@ -48,8 +48,8 @@ ttraite(Nom, Le, Ls) :-
 vide_tp_evt.
 
 /*--------------------------------------*
-*	dessinel/2			*
-* Dessine pour une liste (Cf graph)	*
+*	dessinel/2							*
+* Dessine pour une liste (Cf graph)		*
 *---------------------------------------*/
 dessinel(N,[P|S]) :- dessine(N,P), !, dessinel(N,S).
 dessinel(_,[]) :- !.
@@ -70,9 +70,9 @@ roule :- lis_decl, lis_cont, !, moteur(_), !,
 	traite_req(S, Pgm, _), !.
 
 /*--------------------------------------*
-*	continue/0			*
+*	continue/0							*
 * Reprend la boucle d'interpretation 	*
-* avec le PCG en cours.			*
+* avec le PCG en cours.					*
 *---------------------------------------*/
 continue :- 
 	sauve(_, Pgm),

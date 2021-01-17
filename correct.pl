@@ -3,15 +3,15 @@
  Objet de la correction :
  ========================
  Traite comme elle l'est actuellement, la fusion de deux objets n'est pas
- trs satisfaisante, plusieurs problmes se posent qui dcoulent du mme
+ très satisfaisante, plusieurs problmes se posent qui découlent du même
  problme fondamental : traduire l'identit entre deux objets.
 
- Ces problmes ont t mis en vidence notamment  la rsolution de l'
+ Ces problmes ont t mis en vidence notamment à la rsolution de l'
  exo8b :
 
- 1- On pose,  un moment, l'galit o1 = o3, or cette galit impose
- que c1 = c3 puisque le cercles c1 et c3 ont mme rayon ... Prog ne trouve
- pas cette galit.
+ 1- On pose, à un moment, l'galit o1 = o3, or cette galit impose
+ que c1 = c3 puisque le cercles c1 et c3 ont même rayon ... Progé ne trouve
+ pas cette égalité.
 
  2- Un peu plus loin, on trouve ces dfinitions de a1 et a3 (via deux listes) :
 	a3 := intercc(c1, c3) 	et 	a1 := intercc(c3, c1),
@@ -35,7 +35,7 @@
  faudrait donc rviser toute la figure aprs une fusion ... ce que nous
  avions pens viter par l'utilisation d'une table de synonymes !
 
- Un algo de rvision
+ Un algo de révision
  ===================
  Aprs fusion de O1 et O2
 	Pour toutes les figures lmentaires Fe de la figure
@@ -53,7 +53,7 @@
 			       sinon rien
 			sinon rien
 
- Un algo de contrle
+ Un algo de contrôle
  ===================
  Au moment de donner une df. complte  une figure lmentaire,
  chrecher s'il n'existe pas dans la figure une autre fe rpondant
@@ -100,7 +100,7 @@ traite_fus(Nom, Fe) :-
 	partielle(Def),!,
 	double_occ(Nom, Def),
 	retract(Fe),
-        met_a_jour(Nom, Fe, Nfe)
+        met_a_jour(Nom, Fe, Nfe),
 	assert_fig(Nfe).
 
 traite_fus(Nom, Fe) :-
