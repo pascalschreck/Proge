@@ -246,5 +246,14 @@
     ].
  
  	
+/*   Wernick */
+301 # si [G '=p=' cg(A, B, C)]
+    et
+      [connu A, connu G, pas_connu B]
+    alors
+      [
+        Ma nomme mil(B,C),
+        Ma '=p=' mil(symp(A, G), A) /* on peut ajouter : 2 */
+      ].
   
 

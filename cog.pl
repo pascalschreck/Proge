@@ -43,6 +43,9 @@ profil(rotp, rotation x point >> point):- !.	/* image par une rotation   	*/
 profil(centrh, homothetie >> point):- !.	/* centre d'une homothetie	*/
 profil(centrr, rotation >> point):- !.		/* centre d'une rotation	*/
 
+/* pour Wernick */
+profil(cg, point x point x point >> point) :- !.
+
 profil(dro, point x point >> droite):- !.
 profil(dpd, droite x long >> droite):- !.
 profil(dpp, droite x point >> droite):- !.
@@ -172,6 +175,9 @@ permut(angdd):- !.
 permut(+):- !.
 permut(*):- !.
 
+/* Wernick */
+permut(cg) :- !.
+
 /*---------------------------------*
 *        equiv/2                   *
 *   Ne pas couper ...              *
@@ -196,6 +202,11 @@ angdd(D1,D2) equiv angdd(D2,D1).  /* angles de droites non orientes */
 X + Y equiv Y + X.
 X * Y equiv Y * X.
 
+cg(A,B, C) equiv cg(A,C,B).
+cg(A,B,C) equiv cg(B,A,C).
+cg(A,B,C) equiv cg(B,C,A).
+cg(A,B,C) equiv cg(C,A,B).
+cg(A,B,C) equiv cg(C, B, A).
 /*-----------------------------------------------------*
 *   equivdef/2   utilisé pour def_fe dans figure .pl
 *  ajout tiré de correct.pl    --PS2012
@@ -281,6 +292,11 @@ _ eg cpp(O,M) 'except:' [[M diff O] >> [], [M eg O]>>[]] :- !.
 'maj:' D eg dorth(_,P) ==> [ P est_sur D] :- !.
 'maj:' X est_sur ccr(O,R) ==> [R '=l=' dist(O,X)] :- !.
 'maj:' Di eg dird(D) ==> [D est_sur Di] :- !.
+
+/* Wernick  */
+'maj:' G eg cg(A,B,C) ==> [G est_sur dro(A,mil(B,C)), G est_sur dro(B,mil(A,C)), G est_sur dro(C,mil(A,B))] :- !.
+
+
 'maj:' _ ==> [] :- !.		/* par defaut ... */
 
 /*=================== A COMPLETER ================================*/

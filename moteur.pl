@@ -46,7 +46,13 @@ essai_regle :- act_pas_0, fini, !.
 essai_regle :- 
          gen_minact_minpas,
          choisir_regle(Regle),
-         regle_num(Regle, Nregle),
+         regle_num(Regle, Nregle), 
+         /* debogage 
+                write(Nregle), write('\n'),
+                (Nregle = 301, trace
+                   ;     
+                 true),
+          fin debogage */
 	 not(rout(Nregle)),
          regle_cond(Regle, [Pcond | _]),
          Pcond =.. [CRG|_],

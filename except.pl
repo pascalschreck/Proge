@@ -20,7 +20,7 @@ gen_except(fe(Nom,Ty,Deg,Def,Lr,Lp), Except) :-
 	(
 	 mal_defini(Nom,Def), Except = maldef, !
 	 ;
-	 write(prouve_cas_gen), nl, prouve_kg(Kg), Except = ok, !,
+	 write(prouve_cas_gen), write(' '),write(Kg), nl, prouve_kg(Kg), Except = ok, !,
      /* LIGNE SUIVANTE AJOUTÉE PS2012 */
          Kg = (_ >> Lcons), assert_rel_part(Lcons)
 	 ;
@@ -402,7 +402,7 @@ prouve_kg(Lhyps >> _) :- write('echec prouve_kg avec : '), write(Lhyps), nl, fai
 prouve_ex_l([]) :- !.
 prouve_ex_l([Deb| Suite]) :- prouve_ex(Deb), prouve_ex_l(Suite).
 
-
+prouve_ex(X diff X) :- !, fail.
 prouve_ex(Obj1 diff Obj2) :- 
 	Obj1 diff Obj2 si Lcond,
 	prouve_ex_l(Lcond).

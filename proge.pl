@@ -40,7 +40,7 @@
    dynamic(exist_config).
    
 
-
+repertoire('Wernick/').
 batchmode. 
 
 /*
@@ -263,9 +263,16 @@ consultc(F) :-
 	write('... non consulte...')
         ).
         
- /* paches beurk */       
+ /* paches beurk */      
+ /* 
 loade(Nom) :- 
      atom_concat('examples/',Nom, File), consult(File).
+*/
+
+loade(Nom) :- 
+     repertoire(Rep),
+     atom_concat(Rep,Nom, File0), 
+     atom_concat(File0,'.pl', File), consult(File).
      
 list(L,L).
 
