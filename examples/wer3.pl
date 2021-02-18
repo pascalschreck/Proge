@@ -3,4 +3,4 @@
 2 'dec:' point :: g donne.
 3 'dec:' point :: c cherche.
 
-0 'cont:' g '=p=' cgr(c, b, a).
+0 'cont:' g '=p=' cgr(a, b, c).

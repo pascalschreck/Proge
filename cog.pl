@@ -29,6 +29,14 @@
 *                                  *
 *                                  *
 *----------------------------------*/
+:- multifile(profil/2).
+
+/* Wernick */
+
+profil(cgr, point x point x point >> point) :- !.
+profil(ccc, point x point x point >> point) :- !.
+profil(ort, point x point x point >> point) :- !.
+
 profil(interdd, droite x droite >> point):- !.
 profil(intercd, cercle x droite >> point):- !.
 profil(interdc, droite x cercle >> point):- !.
@@ -43,15 +51,12 @@ profil(rotp, rotation x point >> point):- !.	/* image par une rotation   	*/
 profil(centrh, homothetie >> point):- !.	/* centre d'une homothetie	*/
 profil(centrr, rotation >> point):- !.		/* centre d'une rotation	*/
 
-/* pour Wernick */
-profil(cg, point x point x point >> point) :- !.
-
 profil(dro, point x point >> droite):- !.
 profil(dpd, droite x long >> droite):- !.
-profil(dpp, droite x point >> droite):- !.
+profil(dpp, droite x point >> droite):- !. /* droite parallèle passant par un point */
 profil(med, point x point >> droite):- !.
 profil(dpdir, point x dir >> droite):- !.
-profil(dorth, droite x point >> droite):- !.
+profil(dorth, droite x point >> droite):- !. /* droite perpendiculaire passant par un point */
 profil(bis, droite x droite >> droite):- !.
 profil(dmd, droite x droite >> droite) :- !.		/* "milieu" de deux droites */
 profil(homd, homothetie x droite >> droite):- !.	/* image par une hom.	*/
@@ -182,6 +187,7 @@ permut(cg) :- !.
 *        equiv/2                   *
 *   Ne pas couper ...              *
 *----------------------------------*/
+
 Terme equiv Terme.
 /*
 interdd(D1,D2) equiv interdd(D2,D1).
@@ -189,6 +195,7 @@ intercd(D1,D2) equiv interdc(D2,D1).
 interdc(D1,D2) equiv intercd(D2,D1).
 intercc(D1,D2) equiv intercc(D2,D1).
 */
+
 mil(A,B) equiv mil(B,A).
 /*
 dro(A,B) equiv dro(B,A).
@@ -202,11 +209,6 @@ angdd(D1,D2) equiv angdd(D2,D1).  /* angles de droites non orientes */
 X + Y equiv Y + X.
 X * Y equiv Y * X.
 
-cg(A,B, C) equiv cg(A,C,B).
-cg(A,B,C) equiv cg(B,A,C).
-cg(A,B,C) equiv cg(B,C,A).
-cg(A,B,C) equiv cg(C,A,B).
-cg(A,B,C) equiv cg(C, B, A).
 /*-----------------------------------------------------*
 *   equivdef/2   utilisé pour def_fe dans figure .pl
 *  ajout tiré de correct.pl    --PS2012
