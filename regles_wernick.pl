@@ -61,11 +61,11 @@ multifile('#'/2).
         C est_sur dorth(dro(A, B), H) : 1
       ].
       
-502 # si [H '=p=' orth(A, B, C)]
+502 # si [H '=p=' ort(A, B, C)]
   et
     [connu A, connu B, connu H, pas_connu C]
   alors
     [
-      Ha nomme dro(H, A),
-      C est_sur dorth(Ha, B) : 1
+      HA nomme dro(H, A),
+      C est_sur dorth(HA, B) : 1
     ].
