@@ -16,6 +16,7 @@
    dynamic(cherche/1),
    dynamic(real/1),
    dynamic('cont:'/2),
+   dynamic('cnd:'/2),              /* ajout PS 02/2021   */
    dynamic(sommet/4),
    dynamic(trappe_echec),
    dynamic(rout/1),
@@ -37,7 +38,8 @@
 /*   dynamic(rech_crg_abs/2), *//* hum ... a verifier : grrrr */
    /* dynamic(synonymes/2),*/ /* grrr */
    dynamic(repccx/2),
-   dynamic(exist_config).
+   dynamic(exist_config),
+   dynamic(no_spam).
    
 
 repertoire('Wernick/').
@@ -61,6 +63,9 @@ bavard.
      op(800, fx, abolish),
      op(600, xfx, 'dec:'),
      op(600, xfx, 'cont:'),
+     op(600, xfx, 'cnd:'),         /* ajout PS 02/2021 */
+     op(600, fx, existe),          /* 02/2021 :  */
+     op(650, xfy, tel_que),        /* */
      op(400, xfx, :>),
      op(50, xfy, &),
      op(400, xfx, alias),
@@ -83,8 +88,8 @@ bavard.
      op(600, xfx, equivdef),
      op(200, xfx, repccx),
      op(650, xfx, #),
-     op(600, fx, si),
-     op(600, xfx, si),
+     op(590, fx, si),    /* modif PS 02:2021 (avant 600, mais utilisé dans cnd:) */
+     op(590, xfx, si),
      op(500, xfx, alors),
      op(475, xfx, sinon),
      op(600, fx, pour),
@@ -119,6 +124,9 @@ defop :-
      op(800, fx, abolish),
      op(600, xfx, 'dec:'),
      op(600, xfx, 'cont:'),
+     op(600, xfx, 'cnd:'),         /* ajout PS 02/2021 */
+     op(650, xfy, tel_que),        /* ajout PS 02/2021 */
+     op(600, fy, existe),
      op(400, xfx, :>),
      op(50, xfy, &),
      op(400, xfx, alias),
@@ -199,7 +207,11 @@ charge :-
 /*---------------------------------*
 *         run/0                    *
 *----------------------------------*/
-run :- charge, abolishe(num_prog_cur), abolishe(num_pcg), gnum(num_pcg,Num), assert(num_prog_cur(Num)).
+run :- charge, 
+       abolishe(num_prog_cur), 
+       abolishe(num_pcg), 
+       gnum(num_pcg,Num), 
+       assert(num_prog_cur(Num)).
 
 
 /*----------------------------------*

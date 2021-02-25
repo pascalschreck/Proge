@@ -169,7 +169,7 @@ atomise(V,_) :- var(V), !, fail.
 
 atomise(Terme, Nom) :- atom(Nom), !,atominst(Terme, Nom).
 
-atomise(Terme, Nom) :- var(Nom), !, atomvar(Terme, Nom).
+atomise(Terme, Nom) :- var(Nom), !,atomvar(Terme, Nom).
 
 
 atomise(Terme, Nom) :-
@@ -250,7 +250,7 @@ atomvar(Nom, Rep) :- atom(Nom), !,
 	 ;
 	 nl, writel(['(atomvar) ### Attention : ', Nom, 'n a pas de syn']),
 	 Rep = Nom
-	 ).
+	 ), !.
 	 
 atomvar(Terme, Nom) :-
     Terme =.. [F | Larg],
@@ -259,7 +259,7 @@ atomvar(Terme, Nom) :-
     (
     rep_fe(Terma, Fig), !, fe_nom(Fig, Nom)
     ;
-    creeraux(Terma, Nom), !
+    not(no_spam), creeraux(Terma, Nom), !
     ),
      'maj:' Nom eg Terma ==> Lmaj,
     complete_figl(Lmaj,_).    

@@ -65,7 +65,7 @@ dessinel(N,T) :- dessine(N,T).
 * interpretation et lancement de la 	*
 * boucle d'attente de commande.		*
 *---------------------------------------*/
-roule :- lis_decl, lis_cont, !, moteur(_), !,
+roule :- lis_decl, lis_cont, lis_cnd, !, moteur(_), !,
 	pcg_bdf_l(_,Pgm),
 	gname(pgm_int, P),
 	asserta(sauve(P, Pgm)), !,

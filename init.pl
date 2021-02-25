@@ -33,8 +33,13 @@ lis_cont :- retract(N 'cont:' Contrainte),
 
 lis_cont.
 
-
-
+/* code ajouté pour prendre en compte les condifitons de non-dégénérescence  (cnd) */
+lis_cnd :- retract(N 'cnd:' Contrainte),
+            assert(lu(N 'cnd:' Contrainte)), 
+            write(Contrainte), nl,
+            traite_init(Contrainte),
+            lis_cnd.
+lis_cnd.
 
 /*---------------------------------*
 *         ddecl/4                  *
@@ -120,9 +125,13 @@ creer_liste([Decl|Reste]) :-
 * a jour necessaires dans la       *
 * figure.                          *
 *----------------------------------*/
-traite_init(X diff Y) :- /* trappe mise en place pour ajouter des diffs. dans l'enonce */
-       assert(rel_part(X diff Y)), !.    /* PS2012, tres sommaire pour le moment */
+traite_init(X diff Y) :-      /* trappe mise en place pour ajouter 
+                              des diffs. dans l enonce   PS2012 (très sommaire) */
+     write('asserté : '), write(X diff Y si []),
+     assert(rel_part(X diff Y si [])), !. 
 					/* ne concerne que des diff de noms */
+traite_init(X diff Y si L ) :-     /* PS2021 */
+       assert(rel_part(X diff Y si L)), !.    /* PS2012, tres sommaire pour le moment */
 
 traite_init(Cont) :-
     Cont =.. [CRG|Larg],

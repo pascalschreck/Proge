@@ -21,7 +21,8 @@ gen_except(fe(Nom,Ty,Deg,Def,Lr,Lp), Except) :-
 	 mal_defini(Nom,Def), Except = maldef, !
 	 ;
 	 write(prouve_cas_gen), write(' '),write(Kg), nl, prouve_kg(Kg), Except = ok, !,
-     /* LIGNE SUIVANTE AJOUTÉE PS2012 */
+     /* LIGNE SUIVANTE AJOUTÉE PS2012 ; 
+	     en principe les hypothèses du cas général on éte prouvées et ajoutés.*/
          Kg = (_ >> Lcons), assert_rel_part(Lcons)
 	 ;
 	 write(prouve_cas_NON_gen), nl,prouve_non_kg(Kg), Except = maldef, !
@@ -179,7 +180,7 @@ retablis_config(Num_prog, Fl, Al, Ldc, Sl, Dl, Rl, Cpl, Mdl) :-
 	assert(num_prog_cur(Num_prog))
 	),
 	listodb(Fl),		/* remarque : la premiere figure est peut etre a restaurer */
-	listodb(Al),		/* ceci doit etre assure dans les cas d'exception	   */
+	listodb(Al),		/* ceci doit etre assure dans les cas d exception	   */
 	listodb(Ldc),
 	listodb(Sl),
 	listodb(Dl),
@@ -203,16 +204,17 @@ mal_defini(Nom, Def) :-
 *	assert_rel_part/1					*
 *	assert_rp/1						*
 *	assert_rp doit non seulement assurer la mise en place	*
-*      des faits rel_part (sans les doubler), mais traiter l'	*
+*      des faits rel_part (sans les doubler), mais traiter l	*
 *      incidence de ces relations particulieres sur la figure	*
-*      (fusion en cas d'egalite, nouvelle definition, nouvelles	*
-*      relations d'incidences ....				*
+*      (fusion en cas d egalite, nouvelle definition, nouvelles	*
+*      relations d incidences ....				*
 *---------------------------------------------------------------*/
 assert_rel_part([P|S]) :- assert_rp(P), !, assert_rel_part(S).
 assert_rel_part([]).
 
 assert_rp(Rel) :- 
-	rel_part(Rel), ! /* , write(Rel), nl, nl */
+    Rel pequiv Relp,			/* remplacement de equiv (fonctionnel) par pequiv */
+	rel_part(Relp), ! /* , write(Rel), nl, nl */
 	; 
 	traite_rp(Rel).
 
@@ -400,19 +402,59 @@ prouve_kg(Lhyps >> _) :-
 prouve_kg(Lhyps >> _) :- write('echec prouve_kg avec : '), write(Lhyps), nl, fail. 
 
 prouve_ex_l([]) :- !.
-prouve_ex_l([Deb| Suite]) :- prouve_ex(Deb), prouve_ex_l(Suite).
+prouve_ex_l([Deb| Suite]) :- prouve_ex(Deb),!, prouve_ex_l(Suite).
 
-prouve_ex(X diff X) :- !, fail.
-prouve_ex(Obj1 diff Obj2) :- 
-	Obj1 diff Obj2 si Lcond,
-	prouve_ex_l(Lcond).
-	
+prouve_ex(X diff X) :- !, fail.		/* rustine ? */
+
+/* différences explicitées (énoncé par exemple) */
+prouve_ex(Obj1 diff Obj2) :- 		
+	(rel_part(Obj1 diff Obj2 si Lcond) ; rel_part(Obj2 diff Obj1 si Lcond)),
+	prouve_ex_l(Lcond),
+	(Lcond = []; asserta(rel_part(Obj1 diff Obj2))),!.
+
+prouve_ex(Obj1 diff Obj2) :-
+	(rel_part(Obj1 diff Obj2); rel_part(Obj2 diff Obj1)),!,
+	write(Obj1 diff Obj2),write(' a été utilisé'),nl.
+
+/* application des règles (basiques) plus bas */
+prouve_ex(Obj1 diff Obj2) :-
+	(Obj1 diff Obj2 si Lcond; Obj2 diff Obj1 si Lcond),
+	/* write('essai de preuve de '), write(Obj1 diff Obj2 si Lcond),nl,*/
+	prouve_ex_l(Lcond),
+	write('preuve de :'), write(Obj1 diff Obj2 si Lcond),nl, 
+	!, write(Obj1 diff Obj2), write(' a été asserté'), nl,
+	asserta(rel_part(Obj1 diff Obj2)). 
+
+
+/* prouve_ex suite */
+
+prouve_ex(N de type Ty) :-
+	atom(N), xtype(N, Ty), !
+	;
+	ttype(N, Ty), !.	
+
+prouve_ex(existe Var :: Type tel_que Terme) :-
+	/* on peut chercher dans les représentants si c'est une égalité u tester 
+	   tous les objet géométriques possibles
+	   ou travailler globalement, c'est plus lourd, mais plus général
+	*/
+	not(var(Var)), !, write('dans prouve_ex (except) :'),
+	                  write(Var),
+					  write(' devrait être une variable'),nl
+	;
+	fe(Var,Type,_,_,_,_),
+	assert(no_spam),
+	prouve_ex(Terme),
+	abolish(no_spam/0)
+	.
+
+
 prouve_ex(Rel) :-
 	Rel =.. [F, T1, T2],
 	ptitre(F, egalite),
 	atomise(T1,N1),
 	atomise(T2,N2),
-	synonymes(N1, N2).
+	synonymes(N1, N2),!.
 	
 prouve_ex(Rel) :-
 	Rel =.. [F, T1, T2],
@@ -421,14 +463,9 @@ prouve_ex(Rel) :-
 	atomise(T2, N2),
 	nom_fe(N2, Fig),
 	fe_parts(Fig, Lp),
-	appartient(N1/_/_, Lp).
+	appartient(N1/_/_, Lp),!.
 	
 	
-
-prouve_ex(N de type Ty) :-
-	atom(N), xtype(N, Ty), !
-	;
-	ttype(N, Ty), !.	
 		
 prouve_ex(Rel) :-
 	Rel =.. [F|Args],
@@ -493,12 +530,37 @@ contraire(nul(K), non_nul(K)).
 *         on cherche alors dans le raisonnement         *
 *         qui est moins riche que la figure             *
 *-------------------------------------------------------*/
+/*
+
+                ATTENTION : '=<type>=' utilise l'atomisation qui ne fonctionne pas 
+				lorsque l'un des deux termes n'est pas clos.
+				il faut donc revoir les règles ci-dessous !
+				(work in progress)
+
+*/
+
+/* PS 02/2021 : */
+/* on utilise un nouvel opérateur : exist et tel_que */
+/* qui va permettre de chercher tous les B qui conviennent */
+P1 diff G si [P1 de type point, G de type point, 
+              existe B :: point tel_que P1 '=p=' symp(B,G)].
+
+P1 diff G si [P1 de type point, G de type point, 
+              existe B :: point tel_que P1 '=p=' symp(G,B)].
+
+A diff G si [
+			A de type point, 
+			G de type point, 
+			existe X :: point tel_que existe Y :: point tel_que G '=p=' cgr(A,X,Y), X diff A, Y diff A]. 
+
+A diff B si [A de type point, B de type point, 
+             existe X :: point tel_que A '=p=' mil(X,B) , X diff B].
 
 A diff B si [A de type point, B de type point, A est_sur D, D de type droite, B est_sur Dp,
-             Dp de type droite, dir(D) = dir(Dp) ].
+             Dp de type droite, dir(D) = dir(Dp), D diff Dp ].
 A diff B si [A de type point, B de type point, dist(A,B) '=l=' K, non_nul(K)].
 A diff B si [A de type point, B de type point, A '=p=' centre(C), B est_sur C].
 A diff B si [A de type point, B de type point, A est_sur ccr(O,R1), B est_sur ccr(O,R2), R1 diff R2].
 A diff B si [A de type point, B de type point, A est_sur D1, B est_sur D2, 
 		D1 diff D2, dird(D1) '=di=' dird(D2)].
-A diff B si [A de type point, B de type point, A '=p=' mil(X,B) , X diff B].
+

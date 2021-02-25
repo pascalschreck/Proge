@@ -42,6 +42,7 @@ après différents messages (qui sont souvent echec, mais ça ne veut pas dire q
 on a le prompt 'r:'
 avec h on a les différentes commandes possibles ... presque plus rien ne fonction :( sauf afficher le programme, en tapant a.
 Avec notre exemple :
+```
 r: |: h
 
  Aide : 
@@ -132,6 +133,7 @@ si [g diff a] alors
 verifier(g=p=cg(a,b,c))
 fin
  r: 
+```
 ## Notions
 Relatives à la signature :
 * types --> type.pl
