@@ -557,8 +557,8 @@ contraire(nul(K), non_nul(K)).
 */
 
 /* PS 02/2021 : */
-/* on utilise un nouvel opérateur : exist et tel_que */
-/* qui va permettre de chercher tous les B qui conviennent */
+/* on utilise deux nouveaux opérateurs : existe et tel_que */
+/* qui vont permettre de chercher tous les B qui conviennent */
 P1 diff G si [P1 de type point, G de type point, 
               existe B :: point tel_que P1 '=p=' symp(B,G)].
 
@@ -568,11 +568,16 @@ P1 diff G si [P1 de type point, G de type point,
 A diff G si [
 			A de type point, 
 			G de type point, 
-			existe X :: point tel_que existe Y :: point tel_que G '=p=' cgr(A,X,Y), X diff A, Y diff A]. 
+			existe X :: point tel_que 
+			existe Y :: point tel_que G '=p=' cgr(A,X,Y), X diff A, Y diff A]. 
 
 A diff B si [A de type point, B de type point, 
-             existe X :: point tel_que [A '=p=' mil(X,B),X diff B]].
-
+             existe X :: point tel_que [A '=p=' mil(X,B),X diff B]].	/* note la liste pour pouvoir bien backtracker */
+/*-----------------------------------------------------
+	Les règles suivantes sont à revoir.
+	Il faut mettre des 'existe' et des 'tel_que'
+	Il peut y avoir beuaoucp de règles !
+*------------------------------------------------------*/
 A diff B si [A de type point, B de type point, A est_sur D, D de type droite, B est_sur Dp,
              Dp de type droite, dir(D) = dir(Dp), D diff Dp ].
 A diff B si [A de type point, B de type point, dist(A,B) '=l=' K, non_nul(K)].
