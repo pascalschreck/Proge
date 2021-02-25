@@ -445,7 +445,7 @@ prouve_ex(existe Var :: Type tel_que Terme) :-
 	fe(Var,Type,_,_,_,_),
 	assert(no_spam),
 	prouve_ex(Terme),
-	abolish(no_spam/0)
+	retractall(no_spam)
 	.
 
 

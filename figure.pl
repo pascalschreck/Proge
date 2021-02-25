@@ -259,7 +259,8 @@ atomvar(Terme, Nom) :-
     (
     rep_fe(Terma, Fig), !, fe_nom(Fig, Nom)
     ;
-    not(no_spam), creeraux(Terma, Nom), !
+    not(no_spam), 
+    creeraux(Terma, Nom), !
     ),
      'maj:' Nom eg Terma ==> Lmaj,
     complete_figl(Lmaj,_).    
