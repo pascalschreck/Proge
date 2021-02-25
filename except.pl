@@ -433,6 +433,21 @@ prouve_ex(N de type Ty) :-
 	;
 	ttype(N, Ty), !.	
 
+prouve_ex(existe Var :: Type tel_que [P|S]) :-
+	/* on peut chercher dans les représentants si c'est une égalité u tester 
+	   tous les objet géométriques possibles
+	   ou travailler globalement, c'est plus lourd, mais plus général
+	*/
+	not(var(Var)), !, write('dans prouve_ex (except) :'),
+	                  write(Var),
+					  write(' devrait être une variable'),nl
+	;
+	fe(Var,Type,_,_,_,_),
+	assert(no_spam),
+	prouve_ex_l([P|S]),
+	retractall(no_spam)
+	.
+
 prouve_ex(existe Var :: Type tel_que Terme) :-
 	/* on peut chercher dans les représentants si c'est une égalité u tester 
 	   tous les objet géométriques possibles
@@ -441,6 +456,8 @@ prouve_ex(existe Var :: Type tel_que Terme) :-
 	not(var(Var)), !, write('dans prouve_ex (except) :'),
 	                  write(Var),
 					  write(' devrait être une variable'),nl
+	;
+	not(Terme = [_|_]), !
 	;
 	fe(Var,Type,_,_,_,_),
 	assert(no_spam),
@@ -554,7 +571,7 @@ A diff G si [
 			existe X :: point tel_que existe Y :: point tel_que G '=p=' cgr(A,X,Y), X diff A, Y diff A]. 
 
 A diff B si [A de type point, B de type point, 
-             existe X :: point tel_que A '=p=' mil(X,B) , X diff B].
+             existe X :: point tel_que [A '=p=' mil(X,B),X diff B]].
 
 A diff B si [A de type point, B de type point, A est_sur D, D de type droite, B est_sur Dp,
              Dp de type droite, dir(D) = dir(Dp), D diff Dp ].
