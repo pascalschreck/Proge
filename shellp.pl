@@ -20,7 +20,9 @@ sont :
 *------------------------*/
 shell :- 
      nl, write('commande : '),
-     get1(C), list([C],S), traitecom(S), shell, !.
+     /* get1(C), list([C],S), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     traitecom(S), shell, !.
      
 shell.
 
@@ -51,7 +53,9 @@ traitecom("A") :- !, fail.
 traitecom("Q") :- traitecom("q").
 traitecom("q") :- 
      nl, write('confirmation retour a MS-DOS (o/n) : '),
-     get1(C), ([C] == "o"; [C] == "O"), halt.
+     /* get1(C), *//* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     (S == "o"; S == "O"), halt.
 
 
 traitecom("G") :- resout, !.
@@ -102,7 +106,9 @@ traitecom(_) :- nl, put(7), write('*** Commande non reconnue').
 *----------------------------------*/
 editcontraintes :- 
      nl, write('editions contraintes : '),
-     get1(C), list([C], S), traite_editc(S), editcontraintes, !.
+     /* get1(C), list([C], S), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     traite_editc(S), editcontraintes, !.
 editcontraintes.
 
 /*---------------------------------*
@@ -202,10 +208,11 @@ traite_editc("d") :-
 traite_editc("Z") :- traite_editc("z"), !.
 traite_editc("z") :-
      nl, write(' Voulez-vous vraiment effacer toutes les contraintes (o/n)'),
-     get1(C),
+     /* get1(C), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
      (
-      C \== 79,
-      C \== 111, !
+      S \== "O",
+      S \== "o", !
      ;
       retract( _ 'cont:' _ ),
       fail
@@ -254,7 +261,9 @@ ppl_cont(N,N).
 *----------------------------------*/
 editdeclar :- 
      nl, write('editions des declarations : '),
-     get1(C), list([C], S), traite_editd(S), editdeclar, !.
+     /* get1(C), list([C], S), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     traite_editd(S), editdeclar, !.
 editdeclar.
 
 /*---------------------------------*
@@ -354,10 +363,11 @@ traite_editd("d") :-
 traite_editd("Z") :- traite_editd("z"), !.
 traite_editd("z") :-
      nl, write(' Voulez-vous vraiment effacer toutes les declarations (o/n)'),
-     get1(C),
+     /* get1(C), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
      (
-      C \== 79,
-      C \== 111, !
+      S \== "O",
+      S \== "o", !
      ;
       retract( _ 'dec:' _ ),
       fail
@@ -405,7 +415,9 @@ ppl_dec(N,N).
 *----------------------------------*/
 figure_info :-
      nl, write(' figure > '),
-     get1(C), list([C], S), traite_figi(S), figure_info, !.
+     /* get1(C), list([C], S), */ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     traite_figi(S), figure_info, !.
 
 figure_info.   
 
@@ -467,7 +479,9 @@ traite_figi(_) :- nl, write(' Commande incorrecte ou non en service '), nl.
 *----------------------------------*/
 raison_info :-
      nl, write(' raison > '),
-     get1(C), list([C], S), traite_raisi(S), raison_info, !.
+     /* get1(C), list([C], S),*/ /* ancienne version incompatible avec swipl */
+     get_str1(S), !,
+     traite_raisi(S), raison_info, !.
 
 raison_info.   
 
