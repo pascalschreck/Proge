@@ -32,7 +32,7 @@ multifile('#'/2).
       ].
       
 401 # si [O '=p=' ccc(A, B, C)]
-  et [connu O, connu A, pas_connu(B), pas_connu(C)]
+  et [connu O, connu A, pas_connu(B)] /* indépendant du statut de C  */
   alors
     [
       CCC nomme ccp(O, A),

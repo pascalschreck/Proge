@@ -28,6 +28,17 @@
         H est_sur cdiam(A,B),
         H est_sur ccr(A,L) : 1
        ].
+
+32 # si [ H '=p=' prj(A, dro(B,C))]
+      et
+      [connu B, connu H, pas_connu C, pas_connu A]
+      alors
+      [
+            D nomme dorth(dro(B,H),H),
+            D '=d=' dro(A,H)
+      ].
+
+
 33 # si [ H '=p=' prj(A, dro(B,C))]
       et
 	[connu A, connu H,  pas_connu B, pas_connu C]
@@ -246,3 +257,7 @@
     	tinhibe(300)
     ].
     
+
+
+
+
