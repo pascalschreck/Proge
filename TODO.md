@@ -20,16 +20,7 @@ Les termes 'cnd:' étaient auparavant rangés dans les contraintes. Je crois que
 
 le traitement en lui-même de ces nouveaux termes ne présentait pas de problèmes. En revanche, mon petit prouveur était lui, bourré de problèmes et ne fonctionnait finalement quasiment pas :(
 
-## TODO
-## Prouveur pour les cas généraux et pour les cas dégénérés
-finir d'implanter ce prouveur et les règles qu'il utilise. On pourrait d'ailleurs écrire un système de règles plus lisible et plus facile à écrire pour un non programmeur.
-Par ailleurs, les règles pourraient presque étre dérivées des constructeurs d'objets.
-
-Remarque : par rapport aux prouveurs usuels, on se soucie aussi de montrer que des objets sont différents. Pour cela, on se fonde 
-* sur des déclarations explicites de différences (par exemple dans l'énoncé ou parce qu'on est dans une branche du programme (si_alors_sinon_) dans lequelle des différences ont été supposées) 
-* sur des heuristiques qu'on devrait pouvoir inhiber : par exemple, si on déclare que la distance entre deux points est k, on dit impliciement que k est non nul et que le spoints sont donc différents (peut être à revoir)
-
-## Nettoyage de programme après coup
+### Nettoyage de programme après coup
 Faire un tri topologique en partant des objets cherchés ou mentionnés (et pour les objets donnés ? que fait-on s'ils ne servent à rien ?)
 On part des définitions des objets cherchés ou mentionnés qu'on a prédemment marqués et on marque tous les objets qui interviennent dans leur définition. Et on recommence.
 C'est un procédé classique en compilation où on détecte les variables inutilisées en construisant un graphe de dépendances. 
@@ -48,3 +39,20 @@ pcg_bdf_l/2 utilise  :
 * pcg_bdf_l2/2 : ce prédicat ne fait que constituer la liste des instrucions de vérification qui sera ajoutée (dans le prédicat pcf_bdf_l) à la liste construite par pcf_bdf_l1 ;
 
 Le nettoyage peut se faire après l'appel à pcg_bdf_l/2 (ou être inclus dans pcf_bdf_l si on veut traiter des spécificités par branche, mais alors on ne remonte pas à la racine du programme).
+## TODO
+### Prouveur pour les cas généraux et pour les cas dégénérés
+finir d'implanter ce prouveur et les règles qu'il utilise. On pourrait d'ailleurs écrire un système de règles plus lisible et plus facile à écrire pour un non programmeur.
+Par ailleurs, les règles pourraient presque étre dérivées des constructeurs d'objets.
+
+Remarque : par rapport aux prouveurs usuels, on se soucie aussi de montrer que des objets sont différents. Pour cela, on se fonde 
+* sur des déclarations explicites de différences (par exemple dans l'énoncé ou parce qu'on est dans une branche du programme (si_alors_sinon_) dans lequelle des différences ont été supposées) 
+* sur des heuristiques qu'on devrait pouvoir inhiber : par exemple, si on déclare que la distance entre deux points est k, on dit impliciement que k est non nul et que le spoints sont donc différents (peut être à revoir)
+
+### Entrées-sorties et batchmode
+Permettre d'écrire les énoncés avec leurs pgm de construction dans un fichier
+
+Dans le mini-interpréteur de commande écrire la commande n pour new qui permette de charger un nouvel énoncé et de lancer sa résolution.
+
+faire un mod batch qui traite tout un répertoire ou une liste de fichier écrite dans fichier texte.
+
+Revoir tous les interpéteurs de commandes ...

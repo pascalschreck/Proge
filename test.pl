@@ -135,7 +135,7 @@ traite_req("a", Pgm, L) :-
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L).
 
-traite_req("n", Pgm, L) :-
+traite_req("c", Pgm, L) :-
 	net_pcg(Pgm,Pgmp),
     aff_prog(Pgmp, 0),
 	nl, write(' r: '),
@@ -146,7 +146,7 @@ traite_req(_, Pgm, L) :-
 	nl, write('d	 : dessine '),
 	nl, write('s     : solution suivante'),
 	nl, write('p	 : solution precedente'),
-	nl, write('c	 : changer un objet de base'),
+	nl, write('c	 : nettoyer le programme courant'),
 	nl, write('i	 : nouvelle interpretation (complete)'),
 	nl, write('x	 : coordonnees'),
 	nl, write('e	 : shell'),
@@ -154,7 +154,7 @@ traite_req(_, Pgm, L) :-
 	nl, write('r	 : recuperer un programme'),
 	nl, write('a	 : afficher le programme'),
 	nl, write('k	 : kill programmes sauves'),
-	nl, write('w	 : modifier la fenetre'),
+	nl, write('w	 : écrire le programme dans un fichier'),
 	nl, write('f,q	 : quitter'),
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L), !.
