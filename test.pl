@@ -135,6 +135,12 @@ traite_req("a", Pgm, L) :-
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L).
 
+traite_req("n", Pgm, L) :-
+	net_pcg(Pgm,Pgmp),
+    aff_prog(Pgmp, 0),
+	nl, write(' r: '),
+	get_str1(S), !,traite_req(S, Pgm, L).
+
 traite_req(_, Pgm, L) :-
 	nl, write(' Aide : '),
 	nl, write('d	 : dessine '),

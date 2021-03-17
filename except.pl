@@ -33,14 +33,14 @@ gen_except(fe(Nom,Ty,Deg,Def,Lr,Lp), Except) :-
 	 Except = ok.
 	 
 /*--------------------------------------------------------------*
-* declenche_except/2						*
-* Declencher une exception (lorsque Proge n'a pu ni		*
-* demontrer, ni infirmer le cas general).			*
-* Ce predicat agit par effet de bord sur la base de 		*
-* faits.							*
-* Les arguments sont la figure elementaire qui pose		*
-* le probleme et la liste des cas associes a la def. le		*
-* cas general en tete de liste.					*
+* declenche_except/2											*
+* Declencher une exception (lorsque Proge n'a pu ni				*
+* 				demontrer, ni infirmer le cas general).			*
+* Ce predicat agit par effet de bord sur la base de 			*
+* faits.														*
+* Les arguments sont la figure elementaire qui pose				*
+* le probleme et la liste des cas associes a la def. le			*
+* cas general en tete de liste.									*
 *---------------------------------------------------------------*/
 
 declenche_except(fe(Nom, Type, Deg, Def, Lr, Lpart), [Cg|Lp]) :-
@@ -449,7 +449,7 @@ prouve_ex(existe Var :: Type tel_que [P|S]) :-
 	.
 
 prouve_ex(existe Var :: Type tel_que Terme) :-
-	/* on peut chercher dans les représentants si c'est une égalité u tester 
+	/* on peut chercher dans les représentants si c'est une égalité ou tester 
 	   tous les objet géométriques possibles
 	   ou travailler globalement, c'est plus lourd, mais plus général
 	*/

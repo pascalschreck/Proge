@@ -47,7 +47,7 @@ r: |: h
 
  Aide : 
 d        : dessine 
-s     : solution suivante
+s        : solution suivante
 p        : solution precedente
 c        : changer un objet de base
 i        : nouvelle interpretation (complete)
