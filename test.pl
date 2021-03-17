@@ -141,6 +141,15 @@ traite_req("c", Pgm, L) :-
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L).
 
+traite_req("w", Pgm, L) :-
+	write("nom de fichier (avec des quotes ' ' si il contient un point) : "),
+	read(Nf),
+	tell(Nf),
+	aff_prog(Pgm, 0),
+	told;
+	nl, write(' r: '),
+	get_str1(S), !,traite_req(S, Pgm, L).
+
 traite_req(_, Pgm, L) :-
 	nl, write(' Aide : '),
 	nl, write('d	 : dessine '),
