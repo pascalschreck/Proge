@@ -70,13 +70,13 @@ multifile('#'/2).
       C est_sur dorth(HA, B) : 1
     ].
     
-503 # si [H '=p=' ort(A, B, C), Hp '=p=' symd(dro(A, B), H)]
+503 # si [H '=p=' ort(A, B, C), O '=p=' ccc(A, B, C)]
   et
-    [connu H]
+    [connu A, connu O]
   alors
     [
-      O nomme ccc(A, B, C),
-      Hp nomme symd(dro(A, B), H),
+      D nomme BC,
+      Hp nomme symd(D, H),
       Hp est_sur ccp(O, A)
     ].
     
@@ -85,5 +85,13 @@ multifile('#'/2).
     [connu H, connu A]
   alors
     [
-      Ha est_sur dro(A, H)
+      Ha est_sur dro(A, H) : 1
+    ].
+    
+505 # si [H '=p=' ort(A, B, C), Hp '=p=' symd(dro(A, B), H)]
+  et
+    [connu H, connu A, pas_connu Hp]
+  alors
+    [
+      Hp est_sur dro(A, H) : 1
     ].
