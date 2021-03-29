@@ -48,6 +48,22 @@
 	  D '=d=' dro(B,C)
 	 ].
 
+34 # si [ H '=p=' prj(A, dro(B, C))]
+      et
+      [connu H, connu B, pas_connu C]
+      alors
+       [
+         C est_sur dro(H, B) : 1
+       ].
+       
+35 # si [ H '=p=' prj(A, dro(B, C))]
+      et
+      [pas_connu A, connu H, connu B]
+      alors
+       [
+         A est_sur dorth(dro(H, B), H) : 1
+       ].
+
  5 # si [ D ortho Dp ]
       et
        [ connu D,  pas_connu Dp]
@@ -243,7 +259,14 @@
       alors
 	 [dird(dro(A,B)) '=di=' dird(dro(C,D)),
 	  dird(dro(A,D)) '=di=' dird(dro(B,C))].
-
+	
+210 # si [Ap '=p=' symd(dro(B, C), A)]
+      et
+        []
+      alors
+        [
+          dro(B, C) '=p=' med(A, Ap)
+        ].
 	
 
 300 # si [dist(A,M) + dist(B,N) '=l=' L]

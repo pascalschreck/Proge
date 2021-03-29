@@ -329,6 +329,8 @@ prouve_l([Pt],Numsomt) :-
 * de la figure (peut etre a        *
 * completer.                       *
 *----------------------------------*/
+verifie(ps_def(X,Terme)) :-             /* vérifie que X ne contient pas Terme dans ses représentants */
+        rep_fe(Terme, fe(X, _, _, _, _, _)),!, fail.   /* lourd, mais peut permettre de deboguer en exploitant la fe retournée */
 verifie(connu(X)) :- construit(X), !.
 verifie(pas_connu(X)) :- not(construit(X)), !.
 verifie(cherche(X)) :- not(construit(X)), !.

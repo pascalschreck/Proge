@@ -37,6 +37,15 @@ profil(cgr, point x point x point >> point) :- !.
 profil(ccc, point x point x point >> point) :- !.
 profil(ort, point x point x point >> point) :- !.
 
+/* Remarque : pour le moment, (mars 2021) 
+   les cog pour Wernick e sont pas complétement
+   définis. Il manque :
+   * les exceptions
+   * les règles
+   * les construction implicites (? éventuellement)
+   * ... 
+*/
+
 profil(interdd, droite x droite >> point):- !.
 profil(intercd, cercle x droite >> point):- !.
 profil(interdc, droite x cercle >> point):- !.
@@ -181,7 +190,10 @@ permut(+):- !.
 permut(*):- !.
 
 /* Wernick */
-permut(cg) :- !.
+permut(cgr) :- !.
+permut(ort) :- !.
+permut(ccc) :- !.
+
 
 /*---------------------------------*
 *        equiv/2                   *
