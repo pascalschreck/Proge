@@ -198,8 +198,9 @@ charge :-
      nl, tab(5), write('fichier REGLES.PRO.......'), consult(regles),write(consulte),
      nl, tab(5), write('fichier REGLES_WERNICK.PRO'), consult(regles_wernick),write(consulte),
      nl, tab(5), write('fichier EXCEPT...........'), consult(except),write(consulte),
-     nl, tab(5), write('fichier INTER............'), consult(inter), write(consulte),
+     nl, tab(5), write('fichier EXPORT...........'), consult(export), write(consulte),
      nl, tab(5), write('fichier TEST.............'), consult(test), write(consulte),
+     nl, tab(5), write('fichier INTER............'), consult(inter), write(consulte),
 /*     nl, tab(5), write('fichier GRAPH............'), consult(graph), write(consulte), */
      nl, tab(5), write('fichier DEBOG............'), consult(debog),write(consulte),
      nl,consult(shellp),
