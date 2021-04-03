@@ -48,7 +48,7 @@
 	  D '=d=' dro(B,C)
 	 ].
 
-34 # si [ H '=p=' prj(A, dro(B, C))]
+34 # si [ H '=p=' prj(_, dro(B, C))]
       et
       [connu H, connu B, pas_connu C]
       alors
@@ -56,7 +56,7 @@
          C est_sur dro(H, B) : 1
        ].
        
-35 # si [ H '=p=' prj(A, dro(B, C))]
+35 # si [ H '=p=' prj(A, dro(B, _))]
       et
       [pas_connu A, connu H, connu B]
       alors

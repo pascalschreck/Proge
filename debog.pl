@@ -10,16 +10,15 @@
 write_regle(Regle) :- spyre,
 	regle_num(Regle,Num),!,
 	(
-	spyre(Num),write(Regle), nl, !, get1rc(C), 
-	( C == 10, ! ; C == 13, ! ; list([C], S),traite_debog(S))
+	spyre(Num),write(Regle), nl, !, get_str1(S), 
+	traite_debog(S)
 	;
 	true
 	).
 	
 write_regle(Regle) :-
 	debog, nl, write(Regle), nl, !,
-	get1rc(C),
-	( C == 10, ! ; C == 13, !; list([C], S),traite_debog(S)).
+	get_str1(S),traite_debog(S).
 write_regle(Regle) :- step_regle, nl, write(Regle), nl, getrc, !.
 write_regle(Regle) :- bavard, nl, write(Regle), nl, !.
 write_regle(Regle) :- echo, regle_num(Regle,N), nl, write(N), !.
@@ -62,8 +61,7 @@ traite_debog("b") :- nl,
 		).
 
 traite_debog("s") :- shell, !,nl, write('point d''arret : '),
-		get1rc(C), ( C == 10, ! ; C == 13, ! ;
-			     list([C], S),traite_debog(S)).
+		get_str1(S),traite_debog(S).
 
 traite_debog("h") :- nl,
 		write(' a : abort'), nl,
@@ -73,16 +71,15 @@ traite_debog("h") :- nl,
 		write(' s : geom_shell'), nl,
 		write(' c : continue'), nl, !,
 		nl, write('point d''arret : '),
-		get1rc(C), ( C == 10, ! ; C == 13, ! ;
-			     list([C], S),traite_debog(S)).
+		get_str1(S),traite_debog(S).
 
 
 point_arret(_) :- batchmode, !.
 point_arret(Mess) :-
 	nl, write('point d''arret ( '), write(Mess),write(' )'),
-	get1rc(C), ( C == 10, ! ; C == 13, !; list([C], S),traite_debog(S)).
+	get_str1(S),traite_debog(S).
 
 point_arret :- batchmode, !.
 point_arret :-
 	nl, write('point d''arret ( '), write(anonyme),write(' )'),
-	get1rc(C), ( C == 10, ! ; C == 13, ! ; list([C], S),traite_debog(S)).
+	get_str1(S),traite_debog(S).

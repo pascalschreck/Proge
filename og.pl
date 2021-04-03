@@ -217,7 +217,7 @@ ajoute_partl1([Part|SP], fe(Nom, Ty, Deg, Def, Lrep, Lpart), FeS) :-
    maj_recip(Part, Nom),
   ( 
      app_titre_syn(Part, Lpart), !,
-    ajoute_partl1(SP, fe(Nom, Ty, Ndeg, Ndef, Lrep, Lpart), FeS)
+    ajoute_partl1(SP, fe(Nom, Ty, _, _, Lrep, Lpart), FeS)   /* avant Ndeg et Ndef au lieu de _,_*/
     ;
    ajoute_partl1(SP, fe(Nom, Ty, Deg, Def, Lrep, [Part|Lpart]), FeS)
   ).

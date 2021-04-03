@@ -14,8 +14,8 @@ multifile('#'/2).
     [
       G '=p=' gcr(A,B,C),                     /* mars 2021 (PS) : il me semble que nomme ne met pas à jour le 
                                                 raisonnement, seulement la figure (voir moteur.pl               */
-      G est_sur dro(C,mil(B,C)),
-    ]
+      G est_sur dro(C,mil(B,C))
+    ].
 
 /* Si on connait le centre de gravité et un milieu, on peut trouver le côté opposé */
 301 # si [G '=p=' cgr(A, B, C)]
@@ -45,7 +45,7 @@ multifile('#'/2).
 */    
 400 # si [dist(O,B) '=l=' dist(O,C), dist(O,A) '=l=' dist(O,C)]
 et
-  [connu A, connu B, connu C, pas_connu O]
+  [connu A, connu B, connu C, differents [A,B,C], pas_connu O]
 alors
   [
     MedA nomme med(B, C),
@@ -56,12 +56,12 @@ alors
     O est_sur MedC
   ].
 
-410 # si [O '=p=' ccc(A, B, C)]
+410 # si [O '=p=' ccc(A, B, _)]
   et [connu O, connu A, pas_connu B ] /* indépendant du statut de C  */
   alors
     [
-      CCC nomme ccp(O, A),
-      B est_sur CCC : 1
+      CC nomme ccp(O, A),
+      B est_sur CC : 1
     ].
       
 /* Orthocentre */
@@ -86,7 +86,7 @@ alors
   [
     Ha nomme dorth(dro(B, C), A),
     Hb nomme dorth(dro(A, C), B),
-    Hc nomme dorth(dro(A,B)), C),
+    Hc nomme dorth(dro(A,B), C),
     H '=p=' ort(A,B,C),                 /* même chose que plus haut : différence entre 'nomme' et '=p='  */
     H '=p=' interdd(Ha, Hb),
     H est_sur Hc                        /* théorème sur H ... redondant avec 501 ?*/
@@ -108,17 +108,19 @@ alors
       HA nomme dro(H, A),
       C est_sur dorth(HA, B) : 1
     ].
-    
+
+/*   
 503 # si [H '=p=' ort(A, B, C), O '=p=' ccc(A, B, C)]
   et
     [connu A, connu O]
   alors
     [
-      D nomme BC,
+      D nomme dro(B,C),
       Hp nomme symd(D, H),
       Hp est_sur ccp(O, A)
     ].
-    
+*/
+
 504 # si [H '=p=' ort(A, B, C), Ha '=p=' prj(H, dro(B, C))]
   et
     [connu H, connu A]
@@ -127,7 +129,7 @@ alors
       Ha est_sur dro(A, H) : 1
     ].
     
-505 # si [H '=p=' ort(A, B, C), Hp '=p=' symd(dro(A, B), H)]
+505 # si [H '=p=' ort(A, B, _), Hp '=p=' symd(dro(A, B), H)]
   et
     [connu H, connu A, pas_connu Hp]
   alors
@@ -145,3 +147,17 @@ alors
  G '=p=' euler1(H,O)
  ].
 
+/* problème avec cette règle :
+   avec les définitions actuelles,
+   le point Hp est reconnu comme le point A
+*/
+/*
+507 # si [H '=p=' ort(A, B, C), O '=p=' ccc(A, B, C)]
+  et
+    [connu A, connu H, connu O, pas_connu B]
+  alors
+    [
+      Hp nomme intercd(ccp(O,A),dro(A,H)),
+      B est_sur med(H,Hp) : 1
+    ].
+  */
