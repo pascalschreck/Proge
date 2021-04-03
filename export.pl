@@ -16,6 +16,12 @@ export_prog(Pgm) :-
   write(ExportFile, '</geogebra>'), nl(ExportFile),
   close(ExportFile),
   retract(export_file(ExportFile)).
+  
+export_free_point(File, Name, X, Y) :-
+  format(File, '<element type="point" label="~w"> ~n', [Name]),
+  write(File, '<show object="true" label="true"/>'), nl(File),
+  format(File, '<coords x="~w" y="~w" z="1.0" /> ~n', [X, Y]),
+  write(File, '</element>'), nl(File).
 
 
 /* Sur chaque objet "donne", on demande les coordonnées à l'utilisateur */
@@ -25,8 +31,10 @@ export_prog_aux([(OG := donne) | Suite ]) :-
   write('coordonnée x : '), read(X), nl, write('coordonnée y : '), read(Y),
   /* On vérifie que X et Y sont flottants ou entiers*/
   (\+(((float(X) ; integer(X)), (float(Y) ; integer(Y)))) ->
-  (write('Erreur, les coordonnées doivent être des nombres valides.')));
-  export_prog_aux(Suite).
+  (write('Erreur, les coordonnées doivent être des nombres valides.'));
+  export_free_point(File, OG, X, Y),
+  export_prog_aux(Suite)
+  ).
   
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
