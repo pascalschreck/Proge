@@ -50,11 +50,11 @@ batchmode.
 
 echo.
 
-
+/*
 debog.
 
-bavard.
-/* */
+bavard. 
+*/
 
 /*---------------------------------*
 *         defop/0                  *

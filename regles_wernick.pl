@@ -143,8 +143,8 @@ et
  [connu H, connu O]
 alors
  [
- G '=p=' cgr(A, B, C),
- G '=p=' euler1(H,O)
+ G nomme cgr(A, B, C),
+ G '=p=' eulerg(H,O)
  ].
 
 /* problème avec cette règle :

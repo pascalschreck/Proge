@@ -186,15 +186,39 @@ atom_sommet(At, sommet(Num, Prop, Na, Np)) :-
 	Prop =.. [_|Larg],
 	appartient1(At, Larg).
 	
-/*---------------------------------*
-*        Mise a jour du graphe     *
-*  de raisonnement :               *
-*        complete_raisona/3        *
-*  et                              *
-*        complete_raisonp/3        *
-*                                  *
-*----------------------------------*/
+/*------------------------------------------*
+*        Mise a jour du graphe              *
+*  de raisonnement :                        *
+*        complete_raisona/3                 *
+*        complete_raisonp/3                 *      
+*        complete_suite_raison              *
+*                                           *
+*-------------------------------------------*/
+/*-----------------------------------------------------____-*
+*   Explications et révision                                *
+*   révisions 2 avril 2021                                  *
+*   prise en compte des règles à plusieurs prémisses        *
+*    - 2 clauses pour complete_raisona et complete_raisonp  *     
+*    - complete_suite_raison pour tenir compte des          *
+*      prémisses supplémentaires.                           *
+*                                                           *
+*___________________________________________________________*/
+complete_raisona(Prop : Deg, Clausepos & Suite, Numregle) :-
+        (Clausepos \= _ & _,! ; write('probleme complete-raisona'), halt),
+         insom(Prop, Nsom, Repsom),
+         insar(Clausepos :> Nsom, Numregle, _, Repar),
+         (
+         Repar == faux, !, fail
+         ;
+         Repsom == vrai, !,ajoute_ut_act(Nsom, Deg),
+			   ajoute_ut_pas(Clausepos),
+               complete_suite_raisona(Nsom, Suite, Numregle)
+         ;
+         true /* pas de controle .... */
+         ).
+
 complete_raisona(Prop : Deg, Clausepos, Numregle) :-
+        (Clausepos \= _ & _,! ; write('probleme complete_raisona'), halt),
          insom(Prop, Nsom, Repsom),
          insar(Clausepos :> Nsom, Numregle, _, Repar),
          (
@@ -205,9 +229,24 @@ complete_raisona(Prop : Deg, Clausepos, Numregle) :-
          ;
          true		/* pas de controle .... */
          ).
-         
+
+
+
+complete_raisonp(Prop, Clausepos & Suite, Numregle) :-
+         (Clausepos \= _ & _,! ; write('probleme complete_raisona'), halt),
+         insom(Prop, Nsom, Repsom),
+         insar(Clausepos :> Nsom, Numregle, _, Repar),
+         (
+         Repar == faux, !, fail
+         ;
+         Repsom == vrai, !, ajoute_ut_pas(Clausepos),
+         complete_suite_raison(Nsom,Suite,Numregle)
+         ;
+         true		/* pas de controle .... */
+         ).
 
 complete_raisonp(Prop, Clausepos, Numregle) :-
+        Clausepos \= _ & _,!,
          insom(Prop, Nsom, Repsom),
          insar(Clausepos :> Nsom, Numregle, _, Repar),
          (
@@ -218,6 +257,21 @@ complete_raisonp(Prop, Clausepos, Numregle) :-
          true		/* pas de controle .... */
          ).
 
+
+complete_suite_raison(Nsom, P & S, Numregle)  :-
+    insar(P :> Nsom, Numregle, _, vrai),
+    ajoute_ut_pas(P),
+    complete_suite_raison(Nsom, S, Numregle).
+
+complete_suite_raison(Nsom, P , Numregle)  :-
+    P \= _ & _, !,
+    insar(P :> Nsom, Numregle, _, vrai),
+    ajoute_ut_pas(P).
+
+
+/*----------------------------------------------*
+*   Mise à jour des compteurs d'utilisation     *
+*_______________________________________________*/
 ajoute_ut_act(Nsom, Deg) :-
     Rep repccx Nsom, !,
     ajoute_ut_acti(Rep, Deg).

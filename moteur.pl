@@ -40,6 +40,22 @@ moteur(_) :-
 /*----- resolution dirigee par les regles :      *
 *        essai_regle/0                           *
 *------------------------------------------------*/
+/*----------------------------------------------------------------------*
+*                                                                       *
+*   AU début d'une passe, on initialise un compteur autorisant l'
+*   l'application de règles sur des propriétés peu utilisées
+*   en utilisant la table tabla_pas_act/3 à la fin de ce fichier.
+*   Dans la deuxième clause l'appel à gen_minact_minpas fait que lorsque
+*   toutes les rgèles ont échouées, gen_minact_minpas est réappelé pour
+*   lire une nouvelle ligne et engendrer des onctraintes plus large 
+*   sur le nombre d'utilisation des propriétés du raisonnement
+*   à utiliser dans les règles.
+*   
+*   Issue : on dirait que ce mécnisme ne fonctionne pas bien avec des
+*   règles à plusieurs présmisses : c'est bien pour choisir la première,
+*   mais ensuite les autres premisses sont rejetées (je ne sais pas)
+*   pourquoi actuellement.  
+*_______________________________________________________________________*/
 
 essai_regle :- act_pas_0, fini, !.
 
@@ -314,12 +330,31 @@ prouve_abs(Premisse, Num_som) :-
 * le deuxieme argument est de la   *
 * forme num1 & num2 & ...          *
 *----------------------------------*/
+/*--------------------------------------------------------------*
+*     Explication et mise à jour 2 avril 2021                   *
+*                                                               *
+*  prouve_l/2 est un prédicat prenant en entrée une liste de    *      
+*    faits (prémisses d'une règle) devant être instantiés       *
+*    par des faits établis dans le raisonnement. Il s'appuie    *
+*    pour cela sur les prédicats de la famille prouve_* (vue    *
+*    au dessus) qui suivent diverses déclinaisons suivant une   *
+*    stratégie qu'on peut plus ou moins redéfinir.              *
+*   Lorsque prouve-l est invoqué, une règle a déjà été chosie   *
+*    en utilisant prouve qui tient compte de ces priorités,     *
+*    dans prouve_l, le ptédicat appelé devrait donc etre        *
+*    prouve_abs/2 qui ne tient pas compte des priorités.        *
+*                                                               *
+*   mise à jour 2 avril 21 :                                    *
+*  prise en compte de plusieurs prémisses et pb. avec           *
+*  les priorités d'application des règles                       *   
+*       - utilisation de prouve_abs au lieu de prouve           *                                               *
+*_______________________________________________________________*/
 prouve_l([Pt|S],Numsomt & Suite) :- 
          S \== [],
-         prouve(Pt, Numsomt), 
+         prouve_abs(Pt, Numsomt), /*  avant c'était prouve(Pt, Numsomt) */
          prouve_l(S,Suite).
 prouve_l([Pt],Numsomt) :-
-         prouve(Pt, Numsomt).
+         prouve_abs(Pt, Numsomt). /*  avant c'était prouve(Pt, Numsomt) */
 
 
 /*---------------------------------*
