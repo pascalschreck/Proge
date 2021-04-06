@@ -11,11 +11,11 @@ multifile('#'/2).
 301 # si [G '=p=' cgr(A, B, C)]
     et
     
-      [connu A, connu G, pas_connu B]
+      [connu A, connu G]
     alors
       [
         Ma nomme mil(B,C),
-        Ma '=p=' mil(symp(A, G), G) /* on peut ajouter : 2 */
+        Ma '=p=' mil(symp(G, A), G) : 2 /* on peut ajouter : 2 */
       ].
       
 /* Centre du cercle circonscrit */
