@@ -59,19 +59,27 @@ export_prog_aux([(OG := donne) | Suite ]) :-
   export_free_point(File, OG, X, Y),
   export_prog_aux(Suite).
 
+/* Points */
 export_prog_aux([(OG := symp(A, B)) | Suite ]) :-
   export_file(File),
   export_command(File, 'Mirror', [B, A], OG),
   export_prog_aux(Suite).
+  
+export_prog_aux([OG := mil(A, B) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Midpoint', [A, B], OG),
+  export_prog_aux(Suite).
+  
+/* Droites */
   
 export_prog_aux([OG := dro(A, B) | Suite]) :-
   export_file(File),
   export_command(File, 'Line', [A, B], OG),
   export_prog_aux(Suite).
   
-export_prog_aux([OG := mil(A, B) | Suite]) :-
+export_prog_aux([OG := dpdir(A, B) | Suite]) :-
   export_file(File),
-  export_command(File, 'Midpoint', [A, B], OG),
+  export_command(File, 'Line', [A, B], OG),
   export_prog_aux(Suite).
 
 export_prog_aux([OG := dorth(A, B) | Suite]) :-
@@ -79,11 +87,40 @@ export_prog_aux([OG := dorth(A, B) | Suite]) :-
   export_command(File, 'PerpendicularLine', [B, A], OG),
   export_prog_aux(Suite).
   
+/* Cercles */
+export_prog_aux([OG := ccp(A, B) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Circle', [A, B], OG),
+  export_prog_aux(Suite).
+  
+export_prog_aux([OG := ccr(A, B) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Circle', [A, B], OG),
+  export_prog_aux(Suite).
+  
+/* Longueurs */
+export_prog_aux([OG := dist(A, B) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Distance', [B, A], OG),
+  export_prog_aux(Suite).
+  
+/* Directions (gérées à l'aide de vecteurs) */
+export_prog_aux([OG := dird(A) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Direction', [A], OG),
+  export_prog_aux(Suite).
+  
+export_prog_aux([OG := diro(A) | Suite]) :-
+  export_file(File),
+  export_command(File, 'PerpendicularVector', [A], OG),
+  export_prog_aux(Suite).
+  
+/* Intersections */
 export_prog_aux([OG := interdd(A, B) | Suite]) :-
   export_file(File),
   export_command(File, 'Intersect', [B, A], OG),
   export_prog_aux(Suite).
-
+  
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
 
