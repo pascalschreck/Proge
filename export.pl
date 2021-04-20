@@ -78,6 +78,11 @@ export_prog_aux([OG := dorth(A, B) | Suite]) :-
   export_file(File),
   export_command(File, 'PerpendicularLine', [B, A], OG),
   export_prog_aux(Suite).
+  
+export_prog_aux([OG := interdd(A, B) | Suite]) :-
+  export_file(File),
+  export_command(File, 'Intersect', [B, A], OG),
+  export_prog_aux(Suite).
 
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
