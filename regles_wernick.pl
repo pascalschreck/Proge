@@ -28,6 +28,15 @@ multifile('#'/2).
         Ma '=p=' mil(symp(G, A), G) : 2 /* on peut ajouter : 2 */
       ].
       
+302 # si [G '=p=' cgr(A, B, C), Ma '=p=' mil(B, C)]
+  et
+  [connu Ma, connu G]
+  alors
+  [
+    A '=p=' symp(symp(G, Ma), G) : 2
+  ].
+
+      
 /* Centre du cercle circonscrit */
 
 /* Construction du centre du cercle circonscrit */
