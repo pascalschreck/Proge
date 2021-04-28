@@ -140,6 +140,11 @@ traite_req("c", Pgm, L) :-
     aff_prog(Pgmp, 0),
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L).
+	
+traite_req("g", Pgm, L) :-
+	export_prog(Pgm),
+	nl, write(' r: '),
+	get_str1(S), !, traite_req(S, Pgm, L).
 
 traite_req("w", Pgm, L) :-
 	write("nom de fichier (avec des quotes ' ' si il contient un point) : "),
@@ -164,6 +169,7 @@ traite_req(_, Pgm, L) :-
 	nl, write('a	 : afficher le programme'),
 	nl, write('k	 : kill programmes sauves'),
 	nl, write('w	 : écrire le programme dans un fichier'),
+	nl, write('g 	 : exporter la figure dans un fichier'),
 	nl, write('f,q	 : quitter'),
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L), !.
