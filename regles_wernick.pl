@@ -25,11 +25,7 @@ multifile('#'/2).
     alors
       [
         Ma nomme mil(B,C),
-<<<<<<< HEAD
-        Ma '=p=' mil(symp(A, G), G) : 2
-=======
         Ma '=p=' mil(symp(G, A), G) : 2 /* on peut ajouter : 2 */
->>>>>>> Exporteur geogebra fonctionnel (juste à ajouter d'autres constructeurs),
       ].
       
 /* Centre du cercle circonscrit */
