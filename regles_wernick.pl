@@ -146,6 +146,24 @@ alors
  G nomme cgr(A, B, C),
  G '=p=' eulerg(H,O)
  ].
+ 
+507 # si [G '=p=' cgr(A, B, C), O '=p=' ccc(A, B, C)]
+et
+  [connu G, connu O]
+alors
+  [
+    H nomme ort(A, B, C),
+    H '=p=' eulerh(G, O)
+  ].
+
+508 # si [H '=p=' ort(A, B, C), G '=p=' cgr(A, B, C)]
+et
+  [connu H, connu G]
+  alors
+  [
+    O nomme ccc(A, B, C),
+    O '=p=' eulero(H, G)
+  ].
 
 /* problème avec cette règle :
    avec les définitions actuelles,

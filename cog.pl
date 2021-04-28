@@ -37,6 +37,8 @@ profil(cgr, point x point x point >> point) :- !.
 profil(ccc, point x point x point >> point) :- !.
 profil(ort, point x point x point >> point) :- !.
 profil(eulerg, point x point >> point) :- !.  /* def. de G en fonction de H et O */
+profil(eulerh, point x point >> point) :- !. /* def. de H en fonction de G et O */
+profil(eulero, point x point >> point) :- !. /* def. de O en fonction de H et G */
 
 /* Remarque : pour le moment, (mars 2021) 
    les cog pour Wernick e sont pas complétement
