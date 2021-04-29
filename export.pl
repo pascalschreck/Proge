@@ -140,21 +140,21 @@ export_prog_aux([OG := eulero(H, G) | Suite]) :-
   export_file(File),
   /* On créé un nom unique 'temporaire' pour le symétrique dont on a besoin 
   pour la relation d'euler */
-  concat_atom(['_eulero_', OG], NomTemp),
+  concat_atom([OG, '_{eulero}'], NomTemp),
   export_command(File, 'Mirror', [H, G], [NomTemp]),
   export_command(File, 'Midpoint', [NomTemp, G], [OG]),
   export_prog_aux(Suite).
   
 export_prog_aux([OG := eulerh(G, O) | Suite]) :-
   export_file(File),
-  concat_atom(['_eulerh_', OG], NomTemp),
+  concat_atom([OG, '_{eulerh}'], NomTemp),
   export_command(File, 'Mirror', [O, G], [NomTemp]),
   export_command(File, 'Mirror', [G, NomTemp], [OG]),
   export_prog_aux(Suite).
   
 export_prog_aux([OG := eulerg(H, O) | Suite]) :-
   export_file(File),
-  concat_atom(['_eulerg_', OG], NomTemp),
+  concat_atom([OG, '_{eulerh}'], NomTemp),
   export_command(File, 'Midpoint', [O, H], [NomTemp]),
   export_command(File, 'Midpoint', [O, NomTemp], [OG]),
   export_prog_aux(Suite).
