@@ -47,12 +47,13 @@
 repertoire('Wernick/').
 batchmode. 
 
-/*
+
 echo.
 
+/*
 debog.
 
-bavard.
+bavard. 
 */
 
 /*---------------------------------*
