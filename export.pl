@@ -126,8 +126,15 @@ export_prog_aux([OG := interdd(A, B) | Suite]) :-
   
 export_prog_aux([OG := intercd(A, B) | Suite]) :-
   export_file(File),
-  findall(Nom, rep_fe(intercd(A, B), fe(Nom, _, _, _, _, _)), Noms),
-  export_command(File, 'Intersect', [B, A], Noms).
+  findall(Nom, rep_fe(intercd(A, B), fe(Nom, _, _, _, _, _)), ListeNoms),
+  list_to_set(ListeNoms, Noms),
+  write(Noms),
+  export_command(File, 'Intersect', [B, A], Noms),
+  export_prog_aux(Suite).
+  
+export_prog_aux([pour _ dans _ faire Instr| Suite]) :-
+  export_prog_aux(Instr),
+  export_prog_aux(Suite).
   
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
