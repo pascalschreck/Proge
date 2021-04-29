@@ -280,6 +280,16 @@
     	tinhibe(300)
     ].
     
+    
+301 # si [dro(A, B) '=d=' dorth(dro(A, C), A), M '=p=' mil(B, C)]
+      et
+      [connu A, connu M]
+      alors
+      [
+            Ce nomme ccp(M, A),
+            B incidpc Ce : 1,
+            C incidpc Ce : 1
+      ].
 
 
 
