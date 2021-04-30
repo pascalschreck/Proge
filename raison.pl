@@ -212,7 +212,7 @@ complete_raisona(Prop : Deg, Clausepos & Suite, Numregle) :-
          ;
          Repsom == vrai, !,ajoute_ut_act(Nsom, Deg),
 			   ajoute_ut_pas(Clausepos),
-               complete_suite_raisona(Nsom, Suite, Numregle)
+               complete_suite_raison(Nsom, Suite, Numregle)
          ;
          true /* pas de controle .... */
          ).

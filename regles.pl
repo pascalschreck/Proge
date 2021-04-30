@@ -287,8 +287,8 @@
       alors
       [
             Ce nomme ccp(M, A),
-            B incidpc Ce : 1,
-            C incidpc Ce : 1
+            B est_sur Ce : 1,
+            C est_sur Ce : 1
       ].
 
 
