@@ -1,6 +1,6 @@
 /*   Wernick */
-multifile('#'/2).
-
+/* multifile('#'/2). */
+ 
 /* 301 - 399 = Centre de gravité */
 /* 400 - 499 = Centre du cercle circonscrit */
 /* 500 - 599 = Orthocentre */

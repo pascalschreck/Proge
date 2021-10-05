@@ -4,8 +4,8 @@
 *    fichier principal de PROGE    *
 *                                  *
 *----------------------------------*/
-:- dynamic(fichiers_charges), 
-   dynamic(defop),
+:- dynamic(fichiers_charges/0), 
+   dynamic(defop/0),
    dynamic(gnum/2), 
    dynamic(batchmode/0),
    dynamic(num_pgc/1), 
@@ -18,14 +18,14 @@
    dynamic('cont:'/2),
    dynamic('cnd:'/2),              /* ajout PS 02/2021   */
    dynamic(sommet/4),
-   dynamic(trappe_echec),
+   dynamic(trappe_echec/0),
    dynamic(rout/1),
    dynamic(config/10),
-   dynamic(spyre),
-   dynamic(debog),
-   dynamic(step_regle),
-   dynamic(bavard),
-   dynamic(echo),
+   dynamic(spyre/0),
+   dynamic(debog/0),
+   dynamic(step_regle/0),
+   dynamic(bavard/0),
+   dynamic(echo/0),
    dynamic(rout/1),
    dynamic(inhib/2),
    dynamic(minact/1),
@@ -38,8 +38,8 @@
 /*   dynamic(rech_crg_abs/2), *//* hum ... a verifier : grrrr */
    /* dynamic(synonymes/2),*/ /* grrr */
    dynamic(repccx/2),
-   dynamic(exist_config),
-   dynamic(no_spam).
+   dynamic(exist_config/0),
+   dynamic(no_spam/0).
 
 
    
@@ -190,7 +190,7 @@ charge :-
      nl, tab(5), write('fichier COG.PRO..........'), consult(cog),write(consulte),
      nl, tab(5), write('fichier WERNICK_COG.PRO..'), consult(cog_wernick),write(consulte),
      nl, tab(5), write('fichier CRG.PRO..........'), consult(crg),write(consulte),
-     nl, tab(5), write('fichier INIT.PRO.........'), consult(init),write(consulte),
+     nl, tab(5), write('fichier ex_INIT.PRO.........'), consult(ex_init),write(consulte),
      nl, tab(5), write('fichier UTIL.PRO.........'), consult(util),write(consulte),
      nl, tab(5), write('fichier FIGURE.PRO.......'), consult(figure),write(consulte),
      nl, tab(5), write('fichier RAISON.PRO.......'), consult(raison),write(consulte),
