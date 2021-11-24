@@ -106,7 +106,12 @@ sviz_generate_random_object(Name, droite, Object) :-
 % Sviz
 sviz_proge(droite, line).
 sviz_proge(dro, line).
-sviz_proge(ccp, circle).
+sviz_proge(ccp, circle_center_point).
+sviz_proge(rayon, radius).
+sviz_proge(dird, line_vector).
+sviz_proge(diro, orthogonal_line_vector).
+sviz_proge(interdd, inter_line_line).
+sviz_proge(intercd, inter_circle_line).
 
 % Cas général si le terme n'est pas spécifié
 sviz_proge(Term, Term).
