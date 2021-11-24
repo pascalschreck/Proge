@@ -36,7 +36,8 @@ sviz_export_aux([Output := (donne) | Tail], [SvizHead | SvizTail]) :-
 % Autres cas
 sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
   Cons =.. [ConsName | Arguments],
-  sviz_generate_arguments(Arguments, Elements),
+  sviz_fetch_signature(ConsName, ArgTypes),
+  sviz_generate_arguments(ArgTypes, Arguments, Elements),
   sviz_proge(ConsName, SvizConsName),
   SvizHead = element(SvizConsName, [name=Output], Elements),
   % Appel récursif
@@ -46,21 +47,19 @@ sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
 sviz_export_aux([_ | Tail], SvizTail) :-
   sviz_export_aux(Tail, SvizTail).
 
-% sviz_generate_arguments(+Arguments, -DOM)
-% Génère une liste d'arguments
+% sviz_generate_arguments(+Argtypes, +Arguments, -DOM)
+% Génère une liste d'arguments avec une liste de types d'arguments
 
 % Cas de base
-sviz_generate_arguments([], []).
-sviz_generate_arguments([ArgHead | ArgTail], [DOMHead | DOMTail]) :-
-  sviz_generate_single_argument(ArgHead, DOMHead),
-  sviz_generate_arguments(ArgTail, DOMTail).
+sviz_generate_arguments([], [], []).
+sviz_generate_arguments([ArgTypesHead | ArgTypesTail], [ArgHead | ArgTail], [DOMHead | DOMTail]) :-
+  sviz_generate_single_argument(ArgTypesHead, ArgHead, DOMHead),
+  sviz_generate_arguments(ArgTypesTail, ArgTail, DOMTail).
 
-% sviz_generate_single_argument(+Arg, -DOM)
+% sviz_generate_single_argument(+ArgType, +Arg, -DOM)
 % Génère une balise XML pour un argument donné
-sviz_generate_single_argument(Arg, DOM) :-
-  % On récupère le type
-  fe(Arg, ProgeType, _, _, _, _),
-  sviz_proge(ProgeType, SvizType),
+sviz_generate_single_argument(ArgType, Arg, DOM) :-
+  sviz_proge(ArgType, SvizType),
   DOM = element(SvizType, [value=Arg], []).
 
 
@@ -101,6 +100,23 @@ sviz_generate_random_object(Name, droite, Object) :-
       element(point, [value=BName], [])
     ])].
 
+% sviz_fetch_signature(+ConsName, -Argtypes)
+% Récupère les types des arguments pour un constructeur donné
+sviz_fetch_signature(ConsName, Argtypes) :-
+  profil(ConsName, Arg >> _),
+  Arg =.. ArgList,
+  % Nettoyage du prototype
+  sviz_remove_x(ArgList, Argtypes).
+  
+% sviz_remove_x(+Proto, -CleanProto)
+% Ce prédicat supprime les opérateurs 'x' dans une liste qui représente un
+% prototype de constructeur
+sviz_remove_x([], []).
+sviz_remove_x([x | ProtoTail], CleanProto) :-
+  sviz_remove_x(ProtoTail, CleanProto).
+sviz_remove_x([Any | ProtoTail], [Any | CleanProto]) :-
+  sviz_remove_x(ProtoTail, CleanProto).
+
 % sviz_proge(?ProgeTerm, ?SvizTerm)
 % Prédicat bidirectionel de traduction pour les différents termes de Prolog et
 % Sviz
@@ -112,6 +128,8 @@ sviz_proge(dird, line_vector).
 sviz_proge(diro, orthogonal_line_vector).
 sviz_proge(interdd, inter_line_line).
 sviz_proge(intercd, inter_circle_line).
+sviz_proge(dpdir, line_point_vector).
+sviz_proge(dir, vector).
 
 % Cas général si le terme n'est pas spécifié
 sviz_proge(Term, Term).
