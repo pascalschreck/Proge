@@ -125,7 +125,7 @@ sviz_proge(dro, line).
 sviz_proge(ccp, circle_center_point).
 sviz_proge(rayon, radius).
 sviz_proge(dird, line_vector).
-sviz_proge(diro, orthogonal_line_vector).
+sviz_proge(diro, line_perpendicular_vector).
 sviz_proge(interdd, inter_line_line).
 sviz_proge(intercd, inter_circle_line).
 sviz_proge(dpdir, line_point_vector).
