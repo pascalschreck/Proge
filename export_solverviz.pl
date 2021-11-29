@@ -123,9 +123,9 @@ sviz_remove_x([Any | ProtoTail], [Any | CleanProto]) :-
 sviz_proge(droite, line).
 sviz_proge(dro, line).
 sviz_proge(ccp, circle_center_point).
-sviz_proge(rayon, radius).
+sviz_proge(rayon, circle_radius).
 sviz_proge(dird, line_vector).
-sviz_proge(diro, line_perpendicular_vector).
+sviz_proge(diro, vector_perpendicular_line).
 sviz_proge(interdd, inter_line_line).
 sviz_proge(intercd, inter_circle_line).
 sviz_proge(dpdir, line_point_vector).
