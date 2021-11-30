@@ -39,7 +39,7 @@ sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
   sviz_fetch_signature(ConsName, ArgTypes),
   sviz_generate_arguments(ArgTypes, Arguments, Elements),
   sviz_proge(ConsName, SvizConsName),
-  SvizHead = element(SvizConsName, [name=Output], Elements),
+  SvizHead = element(SvizConsName, [out=Output], Elements),
   % Appel récursif
   sviz_export_aux(Tail, SvizTail).
 
@@ -85,7 +85,7 @@ sviz_generate_random_object(Name, point, Object) :-
   % Pour un point, on génère 2 coordonnées
   sviz_generate_random_object(_, coord, CoordX),
   sviz_generate_random_object(_, coord, CoordY),
-  Object = element(point, [name=Name], [CoordX, CoordY]).
+  Object = element(point, [out=Name], [CoordX, CoordY]).
 
 sviz_generate_random_object(Name, droite, Object) :-
   % Pour une droite: on génère 2 points aléatoires
@@ -94,7 +94,7 @@ sviz_generate_random_object(Name, droite, Object) :-
   atom_concat(Name, '_b', BName),
   sviz_generate_random_object(AName, point, A),
   sviz_generate_random_object(BName, point, B),
-  Object = [A, B, element(line, [name=Name],
+  Object = [A, B, element(line, [out=Name],
     [
       element(point, [value=AName], []),
       element(point, [value=BName], [])

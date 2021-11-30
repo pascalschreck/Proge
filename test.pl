@@ -148,8 +148,7 @@ traite_req("g", Pgm, L) :-
 
 traite_req("v", Pgm, L) :-
   sviz_export(Pgm),
-  nl, write(' r: '),
-  get_str1(S), !, traite_req(S, Pgm, L).
+  halt.
 
 traite_req("w", Pgm, L) :-
 	write("nom de fichier (avec des quotes ' ' si il contient un point) : "),
