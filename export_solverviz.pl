@@ -33,6 +33,17 @@ sviz_export_aux([Output := (donne) | Tail], [SvizHead | SvizTail]) :-
   % Appel récursif
   sviz_export_aux(Tail, SvizTail).
 
+% Cas spécial pour le symmétrique (ordre des arguments étrange)
+sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
+  Cons =.. [ConsName | Arguments],
+  sviz_fetch_signature(ConsName, ArgTypes),
+  reverse(ArgTypes, RevArgTypes),
+  reverse(Arguments, RevArguments),
+  sviz_generate_arguments(RevArgTypes, RevArguments, Elements),
+  sviz_proge(ConsName, SvizConsName),
+  SvizHead = element(SvizConsName, [out=Output], Elements),
+  sviz_export_aux(Tail, SvizTail).
+
 % Autres cas
 sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
   Cons =.. [ConsName | Arguments],
@@ -130,6 +141,7 @@ sviz_proge(interdd, inter_line_line).
 sviz_proge(intercd, inter_circle_line).
 sviz_proge(dpdir, line_point_vector).
 sviz_proge(dir, vector).
+sviz_proge(symp, point_symmetry).
 
 % Cas général si le terme n'est pas spécifié
 sviz_proge(Term, Term).
