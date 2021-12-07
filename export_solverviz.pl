@@ -33,9 +33,24 @@ sviz_export_aux([Output := (donne) | Tail], [SvizHead | SvizTail]) :-
   % Appel récursif
   sviz_export_aux(Tail, SvizTail).
 
+% Cas spécial pour intercd
+sviz_export_aux([_ := Cons | Tail], [SvizHead | SvizTail]) :-
+  Cons =.. [ConsName, A, B],
+  ConsName = intercd,
+  sviz_fetch_signature(ConsName, ArgTypes),
+  sviz_generate_arguments(ArgTypes, [A, B], Elements),
+  sviz_proge(ConsName, SvizConsName),
+  % Get actual name of the objects
+  findall(OutName, rep_fe(intercd(A, B), fe(OutName, _, _, _, _, _)), NameList),
+  list_to_set(NameList, NameSet),
+  SvizHead = element(SvizConsName, [out=NameSet], Elements),
+  write(SvizHead),
+  sviz_export_aux(Tail, SvizTail).
+
 % Cas spécial pour le symmétrique (ordre des arguments étrange)
 sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
   Cons =.. [ConsName | Arguments],
+  ConsName = symp,
   sviz_fetch_signature(ConsName, ArgTypes),
   reverse(ArgTypes, RevArgTypes),
   reverse(Arguments, RevArguments),
@@ -53,6 +68,12 @@ sviz_export_aux([Output := Cons | Tail], [SvizHead | SvizTail]) :-
   SvizHead = element(SvizConsName, [out=Output], Elements),
   % Appel récursif
   sviz_export_aux(Tail, SvizTail).
+
+% Boucle 'pour'
+sviz_export_aux([pour Name dans _ faire Instr | Tail], Sviz) :-
+  sviz_export_aux(Instr, SvizHead),
+  sviz_export_aux(Tail, SvizTail),
+  append(SvizHead, SvizTail, Sviz).
 
 % Pour les instructions non traitées
 sviz_export_aux([_ | Tail], SvizTail) :-
@@ -92,6 +113,7 @@ sviz_generate_random_object(_, coord, Object) :-
   random(Rl, Rh, Coord),
   Object = element(literal, [value=Coord], []).
 
+
 sviz_generate_random_object(Name, point, Object) :-
   % Pour un point, on génère 2 coordonnées
   sviz_generate_random_object(_, coord, CoordX),
@@ -110,6 +132,18 @@ sviz_generate_random_object(Name, droite, Object) :-
       element(point, [value=AName], []),
       element(point, [value=BName], [])
     ])].
+
+sviz_generate_random_object(Name, cercle, Object) :-
+  % Pour un cercle, on génère 2 points random
+  atom_concat(Name, '_a', AName),
+  atom_concat(Name, '_b', BName),
+  sviz_generate_random_object(AName, point, A),
+  sviz_generate_random_object(BName, point, B),
+  Object = [A, B, element(circle_center_point, [out=Name],
+           [
+             element(point, [value=AName], []),
+             element(point, [value=BName], [])
+           ])].
 
 % sviz_fetch_signature(+ConsName, -Argtypes)
 % Récupère les types des arguments pour un constructeur donné
@@ -142,6 +176,9 @@ sviz_proge(intercd, inter_circle_line).
 sviz_proge(dpdir, line_point_vector).
 sviz_proge(dir, vector).
 sviz_proge(symp, point_symmetry).
+sviz_proge(centre, circle_center).
+sviz_proge(cdiam, circle_diameter).
+sviz_proge(dist, distance).
 
 % Cas général si le terme n'est pas spécifié
 sviz_proge(Term, Term).
