@@ -1,5 +1,5 @@
 /*------------------------------*
-*       INIT.PRO                *
+*       ex_init.pl                *
 *   transformation d'un enonce  *
 * en une configuration.         *
 *-------------------------------*/
