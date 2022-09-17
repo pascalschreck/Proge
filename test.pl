@@ -146,6 +146,10 @@ traite_req("g", Pgm, L) :-
 	nl, write(' r: '),
 	get_str1(S), !, traite_req(S, Pgm, L).
 
+traite_req("v", Pgm, L) :-
+  sviz_export(Pgm),
+  halt.
+
 traite_req("w", Pgm, L) :-
 	write("nom de fichier (avec des quotes ' ' si il contient un point) : "),
 	read(Nf),
@@ -170,6 +174,7 @@ traite_req(_, Pgm, L) :-
 	nl, write('k	 : kill programmes sauves'),
 	nl, write('w	 : écrire le programme dans un fichier'),
 	nl, write('g 	 : exporter la figure dans un fichier'),
+  nl, write('v   : export la figure au format solverviz'),
 	nl, write('f,q	 : quitter'),
 	nl, write(' r: '),
 	get_str1(S), !,traite_req(S, Pgm, L), !.
