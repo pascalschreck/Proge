@@ -158,6 +158,7 @@ export_prog_aux([OG := eulerg(H, O) | Suite]) :-
 export_prog_aux([pour _ dans _ faire Instr| Suite]) :-
   export_prog_aux(Instr),
   export_prog_aux(Suite).
+  
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
 
