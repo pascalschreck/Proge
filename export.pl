@@ -120,7 +120,44 @@ export_prog_aux([OG := interdd(A, B) | Suite]) :-
   export_file(File),
   export_command(File, 'Intersect', [B, A], OG),
   export_prog_aux(Suite).
+export_prog_aux([OG := intercd(A, B) | Suite]) :-
+  export_file(File),
+/* Recherche de tous les représentants de cette intersection (pour obtenir les noms des intersections) */
+  findall(Nom, rep_fe(intercd(A, B), fe(Nom, _, _, _, _, _)), ListeNoms),
+  /* Suppression des doublons en transformant la liste renvoyée par findall/3
+  en ensemble */
+  list_to_set(ListeNoms, Noms),
+  export_command(File, 'Intersect', [B, A], Noms),
+  export_prog_aux(Suite).
   
+/* Relations d'Euler */
+  
+export_prog_aux([OG := eulero(H, G) | Suite]) :-
+  export_file(File),
+  /* On créé un nom unique 'temporaire' pour le symétrique dont on a besoin 
+  pour la relation d'euler */
+  concat_atom([OG, '_{eulero}'], NomTemp),
+  export_command(File, 'Mirror', [H, G], [NomTemp]),
+  export_command(File, 'Midpoint', [NomTemp, G], [OG]),
+  export_prog_aux(Suite).
+  
+export_prog_aux([OG := eulerh(G, O) | Suite]) :-
+  export_file(File),
+  concat_atom([OG, '_{eulerh}'], NomTemp),
+  export_command(File, 'Mirror', [O, G], [NomTemp]),
+  export_command(File, 'Mirror', [G, NomTemp], [OG]),
+  export_prog_aux(Suite).
+  
+export_prog_aux([OG := eulerg(H, O) | Suite]) :-
+  export_file(File),
+  concat_atom([OG, '_{eulerh}'], NomTemp),
+  export_command(File, 'Midpoint', [O, H], [NomTemp]),
+  export_command(File, 'Midpoint', [O, NomTemp], [OG]),
+  export_prog_aux(Suite).
+  
+export_prog_aux([pour _ dans _ faire Instr| Suite]) :-
+  export_prog_aux(Instr),
+  export_prog_aux(Suite).
 export_prog_aux([H | T]) :-
   export_prog_aux(T).
 
