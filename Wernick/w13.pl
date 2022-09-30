@@ -1,3 +1,4 @@
+/* w13.pl */
 0 'dec:' point :: a donne.
 1 'dec:' point :: o donne.
 2 'dec:' point :: g donne.

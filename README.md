@@ -26,7 +26,37 @@ liste des fichiers utilsés :
 
 
 ## Utilisation
-On écrit un énoncé en Prolog (en utilisant les opérateurs syntaxique qui définissent un langage)
+On écrit un énoncé en Prolog (en utilisant les opérateurs syntaxique qui définissent un langage).
+### Syntaxe d'un énoncé
+Un énoncé est un "programme" Prolog rangé dans un fichier d'extension "pl". L'énoncé proprement dit est une collection de faits. Voici un exemple :
+ 
+    /* w13.pl */
+    0 'dec:' point :: a donne.
+    1 'dec:' point :: o donne.
+    2 'dec:' point :: g donne.
+    3 'dec:' point :: b cherche.
+    4 'dec:' point :: c cherche. 
+  
+    0 'cont:' o '=p=' ccc(a, b, c).
+    1 'cont:' g '=p=' cgr(a, b, c).
+  
+    0 'cnd:' a diff b.
+    1 'cnd:' b diff c.
+    2 'cnd:' a diff c. 
+
+Il y a, pour le moment, trois types de faits :
+- les déclarations (foncteur 'dec:'/2) : 
+  - le premier arguement est un numéro. Cela vient d'une ancienne pratique avec un éditeur en ligne écrit en Prolog permettant de modififier/supprimer/ajouter des déclarations. L'ordre des clauses n'a pas d'importance.
+  - Et le deuxième  argument est un terme indiquant le type, le nom et le statut de l'objet géométrique déclaré. Les types sont décrits dans le fichier Prolog `type.pl`. Les statuts sont prédéfinis, il y en a 3 : donné, cherché et mentionné. Le dernier statut permet d'introduire des objets intermédiaires qui allégeront l'écriture des contraintes.
+
+- les contraintes (fontceur 'cont:'/2) :
+  - le premier argument est un numéro. C'est le même principe que pour les déclarations.
+  - le deuxième argument est un terme prdicatifs bien formé de l'univers géométrique. Les foncteurs prédicatifs sont décrits dans le fichier `crg.pl` (en partie du moins). Il y a une famille de tels foncteurs qui est importante car elle décrit des égalités typées. Par exemple, le foncteur '=p=' impose une égalité entre points.
+- les conditions de non-dégénescence (foncteur 'cnd:'/2) : cetta addition est plus récente et premet d'ajouter des contraintes particuliéres.
+  - le premier argument est un numéro. C'est le même principe que pour les déclarations.
+  - le deuxième argument est une contraintes avec éventuellement une condition (voir TODO.md)
+
+### chargement
 On indique dans le fichier proge.pl le répertoire (à partir du répertoire où est le programme Prolog)
 par exemple 
 repertoire('Wernick/').

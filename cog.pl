@@ -33,12 +33,25 @@
 
 /* Wernick */
 
+/* ps septembre 2022*/
+/* triangle */
+profil(tri, point x point x point >> triangle) :- !..
+
+/* suite Wernick : Raphaël */
+/* modifié 
 profil(cgr, point x point x point >> point) :- !.
 profil(ccc, point x point x point >> point) :- !.
 profil(ort, point x point x point >> point) :- !.
+*/
+
+profil(cgr, triangle >> point) :- !.
+profil(ccc, triangle >> point) :- !.
+profil(ort, triangle >> point) :- !.
+
 profil(eulerg, point x point >> point) :- !.  /* def. de G en fonction de H et O */
 profil(eulerh, point x point >> point) :- !. /* def. de H en fonction de G et O */
 profil(eulero, point x point >> point) :- !. /* def. de O en fonction de H et G */
+
 
 /* Remarque : pour le moment, (mars 2021) 
    les cog pour Wernick e sont pas complétement
@@ -193,9 +206,11 @@ permut(+):- !.
 permut(*):- !.
 
 /* Wernick */
-permut(cgr) :- !.
-permut(ort) :- !.
-permut(ccc) :- !.
+/* permut(cgr) :- !.
+   permut(ort) :- !.
+   permut(ccc) :- !.
+*/
+permut(tri) :- !.
 
 
 /*---------------------------------*
@@ -210,6 +225,13 @@ intercd(D1,D2) equiv interdc(D2,D1).
 interdc(D1,D2) equiv intercd(D2,D1).
 intercc(D1,D2) equiv intercc(D2,D1).
 */
+tri(A, B, C) equiv tri(A, C, B).
+tri(A, B, C) equiv tri(B, A, C).
+tri(A, B, C) equiv tri(B, C, A).
+tri(A, B, C) equiv tri(C, A, B).
+tri(A, B, C) equiv tri(C, B, A).
+
+/*
 cgr(A, B, C) equiv cgr(A, C, B).
 cgr(A, B, C) equiv cgr(B, A, C).
 cgr(A, B, C) equiv cgr(B, C, A).
@@ -227,6 +249,7 @@ ccc(A, B, C) equiv ccc(B, A, C).
 ccc(A, B, C) equiv ccc(B, C, A).
 ccc(A, B, C) equiv ccc(C, A, B).
 ccc(A, B, C) equiv ccc(C, B, A).
+*/
 
 mil(A,B) equiv mil(B,A).
 /*
@@ -255,7 +278,7 @@ interdc(D1,D2) equivdef intercd(D2,D1).
 intercc(D1,D2) equivdef intercc(D2,D1).
 /*---------------------------------*
 *         constr/2                 *
-*                                  *
+*    construction uniquement RC    *
 *----------------------------------*/
 constr(interdd(_,_), base(point)):- !.
 constr(intercd(_,_), base(point)):- !.
@@ -297,6 +320,7 @@ D eg dro(A,B) 'except:' [ [A diff B] >> [], [A eg B] >> [def(D,1,[B/point/incid]
 _ eg med(A, B) 'except:' [[A diff B] >> [], [A eg B] >> []] :- !.
 
 _ eg cpp(O,M) 'except:' [[M diff O] >> [], [M eg O]>>[]] :- !.
+T eg tri(A,B,C) 'except:' [[A diff B, A diff C, B diff C]] :- !.
 
 /*---------------------------------*
 *         maj:/1                   *

@@ -10,6 +10,10 @@
   maximum pour le type donne
 *---------------------------------*/
 
+/* ps septembre 2022*/
+dmax(triangle, 6) :- !.
+/* fiin ajout sept. 2022*/
+
 dmax(point,2):- !.
 dmax(droite,2):- !.
 dmax(cercle,3):- !.
@@ -32,6 +36,10 @@ dmax(T,0) :- write('(dmax) *** ERREUR 0 : '),
  affectees a un type.
  autom(type,nom,objets a construire,nouv. representants)
 ------------------------------------*/
+/* ps septembre 2022*/
+autom(triangle,_, [],[]) :- !.	/* dans le cas de Wernik, on pourrait automatiquement */
+								/*considérer  des choses, par eexemple les cotés*/
+/* fiin ajout sept. 2022*/
 autom(point,_,[],[]):- !.
 autom(droite,D,[dir :: Di nomme dird(D)], [dpdir(nul, Di)]) :- !.
 autom(cercle,C,[point :: O nomme centre(C),long :: R nomme rayon(C)],[ccr(O,R)]):- !.
@@ -50,6 +58,9 @@ autom(T,_,[],[]) :- write('(autom) *** ERREUR 0 : '),
   constructeurs principaux lies
   a un type.
 ------------------------------------*/
+/* ps septembre 2022*/
+princip(triangle, [tri]) :- !.
+/* fiin ajout sept. 2022*/
 princip(point,[interdd,intercd,interdc,intercc]):- !.
 princip(droite,[dro,dpdir]):- !.
 princip(cercle,[ccr,ccp,cr2p,ccir]):- !.
@@ -67,6 +78,9 @@ princip(T,[]) :-write('(princip) *** ERREUR 0 : '),
 * Donne un prototype du terme 		*
 * "coordonnees" en fonction du type.	*
 *---------------------------------------*/
+/* ps septembre 2022*/
+type_coord(triangle, tri(p(_,_), p(_,_),p(_,_))) :- !.  /* ? */
+/* fiin ajout sept. 2022*/
 type_coord(point,p(_,_)).
 type_coord(droite,d(_,_,_)).
 type_coord(cercle,c(p(_,_),_)).
@@ -78,7 +92,7 @@ dessinable(point).
 dessinable(droite).
 dessinable(cercle).
 dessinable(segment).	/*----?????----*/
-dessinable(triangle).	/*----?????----*/
+dessinable(triangle).	/*----ajouté sept. 2022----*/
 dessinable(polygone).	/*----?????----*/
 
 /*--------------------------------------*

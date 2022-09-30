@@ -40,6 +40,32 @@ pcg_bdf_l/2 utilise  :
 
 Le nettoyage peut se faire après l'appel à pcg_bdf_l/2 (ou être inclus dans pcf_bdf_l si on veut traiter des spécificités par branche, mais alors on ne remonte pas à la racine du programme).
 ## TODO
+### Liste de Wernick
+Raphaël a déjà commencer à travailler dessus. Je pense cependant qu'il faut reprendre l'univers géométrique. Je vais esquisser la travail ici :
+1. la liste de Wernick ne considère que des points (dans un triangle), on a déjà les points ... faut-il ajouter la notion de triangle ?
+2. Points caractéristiques :
+    - les sommets et le centre du cercle circonscrit : le centre du cercle circonscrit a été introduit
+    - ccc/3 et il n'y a rien à faire pour les sommets.
+    - les milieux des cotés et l'isobarycentre
+    - les pieds des hauteurs et l'orthocentre
+    - les pieds des bissectrices intérieures et le centre du cercle circonscrit
+3. Nouveaux constructeurs
+    - de points 
+        - on a déjà milieu, il faudrait couper en 3 ... ou plus généralement, barycentre ?
+        - pieds (hauteurs, bissectrices) : on met 1, 2 ou ... constructeurs
+        - centres : centre cercle circonscrit, isobarycentre, orthocentre, centre cercle inscrit
+    - de droites
+        - médianes (?), hauteurs, médiatrices (je crois que ça y est déjà), bissectrice intérieure
+    - de cercles
+        - cercle circonscrit, cercle d'euler
+4. relations : à lister + voir les propriétés importantes sur wikipédia
+5. Mettre au point les règles et le reste en faisant des essais avec la liste de Wernick
+
+
+### Sortie Geogebra
+Raphaël a fait une sortie dans Geogebra, puis une autre dans un langage un peu plus portable. Le fichier export_solverviz.pl traite de ce nouveau format de sortie (je ne sais pas bien comment est ensuite faite la traduction en geogebra, avec un programme Python je crois). Ce deuxième fichier est beucoup mieux fait que le premier (export.pl) car il prend plus en compte l'univers géométrique. On pourrait même aller un peut plus loin et inclure le code xml/geogebra dans la description de l'UG (COG et type). ... à voir
+
+
 ### Prouveur pour les cas généraux et pour les cas dégénérés
 finir d'implanter ce prouveur et les règles qu'il utilise. On pourrait d'ailleurs écrire un système de règles plus lisible et plus facile à écrire pour un non programmeur.
 Par ailleurs, les règles pourraient presque étre dérivées des constructeurs d'objets.
